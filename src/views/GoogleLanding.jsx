@@ -1,46 +1,37 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useHistory} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 
-export default function Login() {
-  const [signInEmail, setSignInEmail] = useState('');
-    const [signInPassword, setSignInPassword] = useState('');
+export default function GoogleLanding() {
+    const [code, setCode] = useState('')
 
-    const history=useHistory();
+    useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        setCode(urlParams.get('code'))
 
-    const onEmailChange=(event)=> {
-        setSignInEmail(event.target.value)
-    }
-    
-    const onPasswordChange=(event)=> {
-        setSignInPassword(event.target.value)
-    }
-
-    const onSubmitSignIn=()=>{
-        fetch('http://localhost:3003/signin', {
-            method:'put',
+        fetch('http://localhost:3003/google/verify', {
+            method:'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                email: signInEmail,
-                password: signInPassword,
+                code: code
             })
         })
-        .then(response => response.json())
-        .then(user => {
-            if(user.id){
-                // setCurrentUser(user);
+        .then (response => response.json())
+        .then(user => {                                
+            if (user.id) {
+                // setCurrentUser(user)
                 history.push('/')
-            }
-            else {
-                alert('Wrong password or email')
-            }
+           } else {
+            alert('you need register')
+           }
         })
-    }
-
+    }, [])
 
   return (
     <>
+    {code}
     </>
   );
 }

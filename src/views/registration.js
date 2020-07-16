@@ -44,7 +44,7 @@ export default function Register() {
 
     const stringifiedParams = queryString.stringify({
       client_id: "121471132079-8bsql8r2dc48kb0rlia0n8p893obpm92.apps.googleusercontent.com",
-      redirect_uri: 'http://localhost:3003/google-landing',
+      redirect_uri: 'http://localhost:3000/google-landing',
       scope: [
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile',

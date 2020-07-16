@@ -83,14 +83,15 @@ app.post('/signin', (req, res) => {
 // Google Auth
 
 app.get('/google-landing', (req, res) => {
-    const code = req.param("code")
+    const { code } = req.body
 
     const auth = new google.auth.OAuth2(
         '121471132079-kjqicpum3hvaere938v1uersfeeak2ck.apps.googleusercontent.com',
         'K5c1RxFXTipQ6QPAU05MoTUy',
-        'http://localhost:3003/google-landing'
+        'http://localhost:3000/google-landing'
     )
 
+    const auth = createConnection();
     const data = await auth.getToken(code);
     const tokens = data.tokens;
     const auth = createConnection();
@@ -100,7 +101,8 @@ app.get('/google-landing', (req, res) => {
     const userGoogleId = me.data.id;
     const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
 
-    
+    console.log(userGoogleEmail)
+
     return {
         id: userGoogleId,
         email: userGoogleEmail,
