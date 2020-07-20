@@ -1,0 +1,30 @@
+.gif{
+    z-index: 99999;
+    bottom:1rem;
+    position: fixed;
+    right: 1rem;
+}
+
+.gif-container{
+    display: flex;
+    justify-content: flex-end;
+   
+}
+
+.bottle{
+    width: 5rem;
+    margin: 1.5rem
+}
+
+.bottle-container{
+    display: flex;
+    justify-content: center;
+}
+
+.container-gif-bottle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem
+}

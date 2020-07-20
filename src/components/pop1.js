@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
-import { Form, Radio } from 'semantic-ui-react'
+import React, {useState, useEffect} from 'react';
+import { Form, Radio } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { currentUser } from '../redux/actions';
 
 import Popup from "reactjs-popup";
 
@@ -7,14 +9,27 @@ import './pop1.css'
 
 
 
-function Pop (){
+function Pop ({currentUser}){
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
     const [active, setActive] = useState('');
     let [ppm, setPpm] = useState('');
-    let [cpm, setCpm]=useState('')
+    let [cpm, setCpm]=useState('');
+
+    useEffect(() => {
+        if (currentUser)
+        {fetch('http://localhost:3003/calories/' + currentUser.email, {
+                        method:'get',
+                        headers: {'Content-Type': 'application/json'}
+        })
+        .then (response=> response.json())
+        .then(response => {
+            ppm= setPpm(response[0].ppm);  
+            cpm= setCpm(response[0].cpm) 
+        })}
+    }, [currentUser])
 
 
     const checkKcal=()=>{
@@ -24,13 +39,30 @@ function Pop (){
         if('Male'){
             
             setPpm(ppm=(66.47 + (13.75* weight) + (5* height) - (6.75* age)).toFixed(0));
-            setCpm((ppm * active).toFixed(0));
+            setCpm(cpm=(ppm * active).toFixed(0));
         }
         else{
             setPpm(ppm=(665.09 + (9.56* weight) + (1.85* height) - (4.67* age)).toFixed(0));
-            setCpm((ppm* active).toFixed(0));
+            setCpm(cpm=(ppm* active).toFixed(0));
         }
+        if (currentUser)
+        {fetch('http://localhost:3003/calories', {
+            method:'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email:currentUser.email,
+                cpm:cpm,
+                ppm:ppm
+            })
+        })
+        .then(response => response.json())
+        .then(response=>console.log(response))}
 
+    }
+
+    const reset= ()=>{
+        setCpm('');
+        setPpm('')
     }
 
     return(
@@ -61,7 +93,8 @@ function Pop (){
         <div className='container-kcal'>
         {ppm?(<div>
             <p>Your basal metabolic rate (BMR):<br/>{ppm}</p><br/>
-            <p>Your total metabolic rate (TMR):<br/>{cpm}</p>
+            <p>Your total metabolic rate (TMR):<br/>{cpm}</p><br/>
+            <button type="submit" className='button' onClick={()=> reset()}>Recheck</button>
             
             </div>):
                 (<div>
@@ -98,5 +131,8 @@ function Pop (){
 
     )
 }
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+});
 
-export default Pop
+export default connect( mapStateToProps)(Pop);

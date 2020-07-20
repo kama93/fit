@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Gif from '../components/gif/gif'
 import Navbar from '../components/Navbar.js';
 import Footer from '../components/Footer.js';
 import Popups from '../components/pop';
@@ -12,7 +13,9 @@ function Landing() {
   return (
     <>
       <Navbar transparent />
+      
       <main>
+      
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center"
             style={{
               minHeight: "75vh"
@@ -58,14 +61,16 @@ function Landing() {
             </svg>
           </div>
         </div>
-
+        
         <section className="pb-20 bg-gray-300 -mt-24">
+        <Gif/>
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap">
             <Popups/>
             <Pop/>
             <Pops/>
             </div>
+           
 
 
             <div className="flex flex-wrap items-center mt-32">

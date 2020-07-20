@@ -10,7 +10,7 @@ function Popups ({currentUser}){
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     let [bmi, setBmi] = useState('');
-    const [info, setInfo]=useState('')
+    let [info, setInfo]=useState('')
 
     useEffect(() => {
         if (currentUser)
@@ -20,7 +20,8 @@ function Popups ({currentUser}){
         })
         .then (response=> response.json())
         .then(response => {
-            bmi= setBmi(response[0].bmi);   
+            bmi= setBmi(response[0].bmi);  
+            info= setInfo(response[0].info) 
         })}
     }, [currentUser])
 
@@ -31,22 +32,22 @@ function Popups ({currentUser}){
         }
 
         if (height>100){
-          setBmi(bmi = (weight/(Math.pow(height/100, 2))).toFixed(0))
+          setBmi(bmi = (weight/(Math.pow(height/100, 2))).toFixed(2))
         }
         else{
-            setBmi(bmi = (weight/(Math.pow(height, 2))).toFixed(0))
+            setBmi(bmi = (weight/(Math.pow(height, 2))).toFixed(2))
         }
         if(bmi < 18.5){
-            setInfo('Underweight')
+            setInfo(info=('Underweight'))
         }
         else if(bmi<24.9 && bmi>=18.5){
-            setInfo('Normal weight')
+            setInfo(info=('Normal weight'))
         }
         else if(bmi<29.9 && bmi>=24.9){
-            setInfo('Overweight')
+            setInfo(info=('Overweight'))
         }
         else{
-            setInfo('Obesity')
+            setInfo(info=('Obesity'))
         }
         if (currentUser)
         {fetch('http://localhost:3003/bmi', {
@@ -55,10 +56,16 @@ function Popups ({currentUser}){
             body: JSON.stringify({
                 email: currentUser.email,
                 bmi: bmi,
+                info:info
             })
         })
         .then(response => response.json())
         .then(response=>console.log(response))}
+    }
+
+    const reset= ()=>{
+        setBmi('');
+        setInfo('')
     }
 
 
@@ -88,7 +95,8 @@ function Popups ({currentUser}){
         <div className='container-BMI'>
         {bmi}
         {bmi?(<div>
-            {info}
+            {info}<br/>
+            <button type="submit" className='button' onClick={()=> reset()}>Recheck</button>
             </div>):
             (<div>
                 <div class="form-group">
