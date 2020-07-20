@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import { useHistory} from 'react-router-dom';
-import { Link } from 'react-router-dom';
+// import { useHistory} from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 export default function GoogleLanding() {
@@ -22,7 +22,7 @@ export default function GoogleLanding() {
         .then(user => {                                
             if (user.id) {
                 // setCurrentUser(user)
-                history.push('/')
+                // history.push('/')
            } else {
             alert('you need register')
            }

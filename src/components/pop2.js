@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Popup from "reactjs-popup";
 
 import './pop2.css'
@@ -13,7 +13,7 @@ function Pops (){
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg container-sector container-pop">
           <div className="px-4 py-5 flex-auto image-pop">
             <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
-            <i class="fas fa-list"></i>
+            <i className="fas fa-list"></i>
             </div>
             <h6 className="text-xl font-semibold">
               Shopping list

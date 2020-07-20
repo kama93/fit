@@ -1,24 +1,47 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useHistory} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import * as queryString from 'query-string';
 
-export default function Register() {
+import { setCurrentUser } from '../redux/actions';
+import { connect } from 'react-redux';
+
+function Register({setCurrentUser}) {
     const [signUpEmail, setSignUpEmail]= useState('');
     const [signUpPassword, setSignUpPassword]= useState('');
     const [confirm, setConfirm]= useState('');
+    const [isChecked, setIsChecked]=useState(false)
 
     const history=useHistory();
+
+    
+       useEffect(() => {
+        if ( localStorage.username !== "") {
+          setSignUpEmail(localStorage.username);
+          setSignUpPassword(localStorage.password);
+          setIsChecked(localStorage.checkbox);
+          history.push('/')
+        }
+      },[]);
+        
 
     const onEmailChange=(event)=> {
         setSignUpEmail(event.target.value)
     }
     const onConfirmChange=(event)=> {
         setConfirm(event.target.value)
+        if(confirm!==signUpPassword){
+          alert('Different password than above')
+        }
     }
     const onPasswordChange=(event)=> {
         setSignUpPassword(event.target.value)
     }
+
+    const  onChangeCheckbox = event => {
+     setIsChecked(event.target.value)
+     loginSubmit()
+  }
 
      const onSubmitSignUp=()=>{
        if (signUpPassword===confirm){
@@ -33,7 +56,7 @@ export default function Register() {
         .then (response=> response.json())
         .then(user => {                                
             if (user.id) {
-                // setCurrentUser(user)
+                setCurrentUser(user)
                 history.push('/')
            } else {
             alert('you need register')
@@ -41,6 +64,13 @@ export default function Register() {
         })
        }
     }
+
+      const loginSubmit = () => {
+        if (isChecked===true && signUpEmail && signUpPassword) {
+            localStorage.username = signUpEmail
+            localStorage.password = signUpPassword
+            localStorage.checkbox = isChecked
+        }}
 
     const stringifiedParams = queryString.stringify({
       client_id: "121471132079-8bsql8r2dc48kb0rlia0n8p893obpm92.apps.googleusercontent.com",
@@ -172,6 +202,7 @@ export default function Register() {
                             type="checkbox"
                             className="form-checkbox text-gray-800 ml-1 w-5 h-5"
                             style={{ transition: "all .15s ease" }}
+                            onChange={onChangeCheckbox}
                           />
                           <span className="ml-2 text-sm font-semibold text-gray-700">
                             Remember me
@@ -220,3 +251,7 @@ export default function Register() {
     </>
   );
 }
+const mapDispatchToProps= dispatch=>({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+export default connect(null, mapDispatchToProps)(Register);

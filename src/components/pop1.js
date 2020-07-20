@@ -21,10 +21,8 @@ function Pop (){
         if(!height || !weight || !gender || !age){
             alert('Please fill form!')
         }
-        if(height<100){
-            return height*100
-        }
         if('Male'){
+            
             setPpm(ppm=(66.47 + (13.75* weight) + (5* height) - (6.75* age)).toFixed(0));
             setCpm((ppm * active).toFixed(0));
         }
@@ -42,7 +40,7 @@ function Pop (){
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg container-sector container-pop">
         <div className="px-4 py-5 flex-auto image-pop">
             <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
-            <i class="fas fa-balance-scale-right"></i>
+            <i className="fas fa-balance-scale-right"></i>
             </div>
             <h6 className="text-xl font-semibold">
             Kcal calculator
@@ -72,11 +70,11 @@ function Pop (){
                     <Form.Field control={Radio} label="Female" checked={gender === 'Female'} value="Female" onClick={() => setGender('Female')} className='gender'/>
                 </div>
                 <div class="form-group">
-                    <label for="height" className="form-label">Your height</label>
+                    <label for="height" className="form-label">Your height (cm)</label>
                     <input type="text" className="form-input" onChange={e => setHeight(e.target.value)}/>
                 </div>
                 <div class="form-group">
-                    <label for="website-url" className="form-label">Your weight</label>
+                    <label for="website-url" className="form-label">Your weight (kg)</label>
                     <input type="text" className="form-input" onChange={e => setWeight(e.target.value)}/>
                 </div>
                 <div class="form-group">

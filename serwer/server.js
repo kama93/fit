@@ -80,35 +80,71 @@ app.post('/signin', (req, res) => {
         .catch(err => res.status(400).json('fetch issue with registration'))
 });
 
+// put BMI in detabase
+app.put('/bmi', (req, res) => {
+    const { email, bmi } = req.body;
+    db.select('email', 'bmi').from('parameters')
+        .where('email', '=', email)
+        .then(db_res => {
+            if (db_res.length == 0) {
+                db('parameters').insert({
+                        email:email,
+                        bmi:bmi
+                    })
+                    .then(result => res.status(200).json('bcs added'))
+                    .catch(err=> res.status(400).json('issue with adding bcs'))           
+            } else {
+                db('parameters')
+                .where('email', '=', email)
+                .update({
+                    bmi:bmi
+                })
+                .then(result => res.status(200).json('bcs update'))
+                .catch(err=> res.status(400).json('issue with adding bcs'))
+            }
+        })        
+})
+
+// get BMI from detabase
+app.get('/bmi/:email', (req, res)=>
+    { const { email }= req.params;
+    db.select('bmi')
+        .from('parameters')
+        .where('email', '=', email)
+    .then(user=>res.status(200).json(user))
+    .catch(err=> {
+        res.status(400).json('error getting bmi')
+    })}
+ )
 // Google Auth
 
-app.get('/google-landing', (req, res) => {
-    const { code } = req.body
+// app.get('/google-landing', (req, res) => {
+//     const { code } = req.body
 
-    const auth = new google.auth.OAuth2(
-        '121471132079-kjqicpum3hvaere938v1uersfeeak2ck.apps.googleusercontent.com',
-        'K5c1RxFXTipQ6QPAU05MoTUy',
-        'http://localhost:3000/google-landing'
-    )
+//     const auth = new google.auth.OAuth2(
+//         '121471132079-kjqicpum3hvaere938v1uersfeeak2ck.apps.googleusercontent.com',
+//         'K5c1RxFXTipQ6QPAU05MoTUy',
+//         'http://localhost:3000/google-landing'
+//     )
 
-    const auth = createConnection();
-    const data = await auth.getToken(code);
-    const tokens = data.tokens;
-    const auth = createConnection();
-    auth.setCredentials(tokens);
-    const plus = getGooglePlusApi(auth);
-    const me = await plus.people.get({ userId: 'me' });
-    const userGoogleId = me.data.id;
-    const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
+//     const auth = createConnection();
+//     const data = await auth.getToken(code);
+//     const tokens = data.tokens;
+//     const auth = createConnection();
+//     auth.setCredentials(tokens);
+//     const plus = getGooglePlusApi(auth);
+//     const me = await plus.people.get({ userId: 'me' });
+//     const userGoogleId = me.data.id;
+//     const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
 
-    console.log(userGoogleEmail)
+//     console.log(userGoogleEmail)
 
-    return {
-        id: userGoogleId,
-        email: userGoogleEmail,
-        tokens: tokens,
-    };
-})
+//     return {
+//         id: userGoogleId,
+//         email: userGoogleEmail,
+//         tokens: tokens,
+//     };
+// })
 
 
 

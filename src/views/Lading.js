@@ -17,7 +17,7 @@ function Landing() {
             style={{
               minHeight: "75vh"
             }}>
-          <div className="absolute top-0 w-full h-full bg-center bg-cover"
+          <div className="absolute w-full h-full bg-center bg-cover"
               style={{
                 backgroundImage: "url('https://images.unsplash.com/photo-1546548970-71785318a17b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80')"
               }}>
@@ -71,7 +71,7 @@ function Landing() {
             <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto" data-aos="zoom-in-right">
                 <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
-                <i class="fas fa-carrot icon"></i>
+                <i className="fas fa-carrot icon"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
                 Eating a balanced diet
@@ -164,7 +164,7 @@ function Landing() {
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4" data-aos="zoom-in-left">
                 <div className="md:pr-12">
                   <div className="text-pink-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-pink-300">
-                  <i class="fas fa-running icon"></i>
+                  <i className="fas fa-running icon"></i>
                   </div>
                   <h3 className="text-3xl font-semibold">
                   Exercise
@@ -180,7 +180,7 @@ function Landing() {
                       <div className="flex items-center">
                         <div>
                           <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
-                          <i class="fas fa-dumbbell"></i>
+                          <i className="fas fa-dumbbell"></i>
                           </span>
                         </div>
                         <div>
@@ -194,7 +194,7 @@ function Landing() {
                       <div className="flex items-center">
                         <div>
                           <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
-                          <i class="fas fa-dumbbell"></i>
+                          <i className="fas fa-dumbbell"></i>
                           </span>
                         </div>
                         <div>
@@ -206,7 +206,7 @@ function Landing() {
                       <div className="flex items-center">
                         <div>
                           <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
-                          <i class="fas fa-dumbbell"></i>
+                          <i className="fas fa-dumbbell"></i>
                           </span>
                         </div>
                         <div>

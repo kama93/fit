@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import { useHistory} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+import { setCurrentUser } from '../redux/actions'
+import { connect } from 'react-redux';
 
-export default function Login() {
+function Login({setCurrentUser}) {
   const [signInEmail, setSignInEmail] = useState('');
     const [signInPassword, setSignInPassword] = useState('');
 
@@ -29,7 +31,7 @@ export default function Login() {
         .then(response => response.json())
         .then(user => {
             if(user.id){
-                // setCurrentUser(user);
+                setCurrentUser(user);
                 history.push('/')
             }
             else {
@@ -37,8 +39,7 @@ export default function Login() {
             }
         })
     }
-
-
+    
   return (
     <>
 
@@ -183,3 +184,9 @@ export default function Login() {
     </>
   );
 }
+
+const mapDispatchToProps= dispatch=>({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(Login);

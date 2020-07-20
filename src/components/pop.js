@@ -1,26 +1,40 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { connect } from 'react-redux';
+import { currentUser } from '../redux/actions';
 
 import Popup from "reactjs-popup";
 
 import './pop.css'
 
-function Popups (){
+function Popups ({currentUser}){
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     let [bmi, setBmi] = useState('');
     const [info, setInfo]=useState('')
 
+    useEffect(() => {
+        if (currentUser)
+        {fetch('http://localhost:3003/bmi/' + currentUser.email, {
+                        method:'get',
+                        headers: {'Content-Type': 'application/json'}
+        })
+        .then (response=> response.json())
+        .then(response => {
+            bmi= setBmi(response[0].bmi);   
+        })}
+    }, [currentUser])
 
     const checkBmi=()=>{
+        console.log(bmi)
         if(!height || !weight){
             alert('Please fill form!')
         }
 
         if (height>100){
-          setBmi(bmi = (weight/(Math.pow(height/100, 2))).toFixed(2))
+          setBmi(bmi = (weight/(Math.pow(height/100, 2))).toFixed(0))
         }
         else{
-            setBmi(bmi = (weight/(Math.pow(height/100, 2))).toFixed(2))
+            setBmi(bmi = (weight/(Math.pow(height, 2))).toFixed(0))
         }
         if(bmi < 18.5){
             setInfo('Underweight')
@@ -34,7 +48,19 @@ function Popups (){
         else{
             setInfo('Obesity')
         }
+        if (currentUser)
+        {fetch('http://localhost:3003/bmi', {
+            method:'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: currentUser.email,
+                bmi: bmi,
+            })
+        })
+        .then(response => response.json())
+        .then(response=>console.log(response))}
     }
+
 
     return(
     <Popup
@@ -81,5 +107,8 @@ function Popups (){
 
     )
 }
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+});
 
-export default Popups
+export default connect( mapStateToProps)(Popups);
