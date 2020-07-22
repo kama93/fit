@@ -28,8 +28,7 @@ function WeeklyDiet ({cpmUser}){
                       headers: {'Content-Type': 'application/json'}
       })
       .then (response=> response.json())
-      .then(response=>setRecipe(response.sourceUrl))
-      // .then(response => setRecipe(response.items.map(x => ({ ...x, 'value': JSON.parse(x.value)}))))
+      .then(response=> window.location.href = response.sourceUrl)
   }
 
     const newPlan=()=>{
@@ -72,45 +71,45 @@ function WeeklyDiet ({cpmUser}){
   <tbody>
     <tr>
       <td className="table-font-size">Monday</td>
-      <td ><a href={recipe}><button onClick={()=>checkRecipe(meal[0].value.id)}>{meal[0].value.title}</button></a></td>
-      <td>{meal[1].value.title}</td>
-      <td>{meal[2].value.title}</td>
+      <td ><button onClick={()=>checkRecipe(meal[0].value.id)}>{meal[0].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[1].value.id)}>{meal[1].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[2].value.id)}>{meal[2].value.title}</button></td>
     </tr>
     <tr>
       <td className="table-font-size">Tuesday</td>
-      <td>{meal[3].value.title}</td>
-      <td>{meal[4].value.title}</td>
-      <td>{meal[5].value.title}</td>
+      <td><button onClick={()=>checkRecipe(meal[3].value.id)}>{meal[3].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[4].value.id)}>{meal[4].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[5].value.id)}>{meal[5].value.title}</button></td>
     </tr>
     <tr>
       <td className="table-font-size">Wednesday</td>
-      <td>{meal[6].value.title}</td>
-      <td>{meal[7].value.title}</td>
-      <td>{meal[8].value.title}</td>
+      <td><button onClick={()=>checkRecipe(meal[6].value.id)}>{meal[6].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[7].value.id)}>{meal[7].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[8].value.id)}>{meal[8].value.title}</button></td>
     </tr>
     <tr>
       <td className="table-font-size">Thursday</td>
-      <td>{meal[9].value.title}</td>
-      <td>{meal[10].value.title}</td>
-      <td>{meal[11].value.title}</td>
+      <td><button onClick={()=>checkRecipe(meal[9].value.id)}>{meal[9].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[10].value.id)}>{meal[10].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[11].value.id)}>{meal[11].value.title}</button></td>
     </tr>
     <tr>
       <td className="table-font-size">Friday</td>
-      <td>{meal[12].value.title}</td>
-      <td>{meal[13].value.title}</td>
-      <td>{meal[14].value.title}</td>
+      <td><button onClick={()=>checkRecipe(meal[12].value.id)}>{meal[12].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[13].value.id)}>{meal[13].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[14].value.id)}>{meal[14].value.title}</button></td>
     </tr>
     <tr>
       <td className="table-font-size">Saturday</td>
-      <td>{meal[15].value.title}</td>
-      <td>{meal[16].value.title}</td>
-      <td>{meal[17].value.title}</td>
+      <td><button onClick={()=>checkRecipe(meal[15].value.id)}>{meal[15].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[16].value.id)}>{meal[16].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[17].value.id)}>{meal[17].value.title}</button></td>
     </tr>
     <tr>
       <td className="table-font-size">Sunday</td>
-      <td>{meal[18].value.title}</td>
-      <td>{meal[19].value.title}</td>
-      <td>{meal[20].value.title}</td>
+      <td><button onClick={()=>checkRecipe(meal[18].value.id)}>{meal[18].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[19].value.id)}>{meal[19].value.title}</button></td>
+      <td><button onClick={()=>checkRecipe(meal[20].value.id)}>{meal[20].value.title}</button></td>
     </tr>
   </tbody>
 </Table>

@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion'
 import Navbar from '../Navbar.js';
-import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+// import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 
@@ -69,34 +69,28 @@ const checkMealRecipe=()=>{
                   <div className="w-full px-4">
                     <div className=" relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                       <div className="container-form-recipe rounded-t mb-0 px-6 py-6 ">
-                  {/* <div><h1>Ingredients</h1></div>
-                  {fridge.map(fridge=>
-                  <div>
-                  {fridge.usedIngredients.map(ingredients=>
-                    <li className="list-ingredients">
-                      {ingredients.originalString}
-                    </li>)}
-                    {/* <div><h1>Recipe</h1></div> */}
-                  
-                  {/* </div>)} */} 
 
                   {fridge.map(fridge=>
                   <Accordion defaultActiveKey="0">
-                    <Card>
+                    <Card className="fridge-cart">
                       <Card.Header>
                       
-                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                        <Accordion.Toggle as={Button} variant="link" eventKey="1" className="fridge-title">
                           {fridge.title}
+                          
                         </Accordion.Toggle>
                       </Card.Header>
-                      {fridge.usedIngredients.map(ingredients=>
-                      <Accordion.Collapse eventKey="0">
+                      
+                      <Accordion.Collapse eventKey="1" className="fridge-insisde">
+                      
                         <div>
+                        <img src={fridge.image}/>
+                        {fridge.usedIngredients.map(ingredients=>
                           <li className="list-ingredients">
                             {ingredients.originalString}
-                          </li>
+                          </li>)}
                         </div>
-                      </Accordion.Collapse>)}
+                      </Accordion.Collapse>
                     </Card>
                   </Accordion>)}
                   </div>

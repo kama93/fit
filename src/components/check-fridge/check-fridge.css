@@ -34,5 +34,16 @@
 }
 
 .list-ingredients{
-    list-style-type: circle
+    list-style-type: circle;
+    color: black
 }
+
+.fridge-insisde{
+    padding:2rem;
+}
+
+.fridge-title{
+    text-decoration: none;
+    color: grey
+}
+
