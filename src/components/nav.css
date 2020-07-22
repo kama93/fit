@@ -1,4 +1,11 @@
 .logo{
     height: 5rem;
 }
+.nav-possition{
+    position: absolute;
+}
+
+/* .absolute {
+    top: auto !important;
+} */
 

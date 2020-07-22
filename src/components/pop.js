@@ -20,8 +20,14 @@ function Popups ({currentUser}){
         })
         .then (response=> response.json())
         .then(response => {
+            if(response.length===0){
+                setBmi('');
+                setInfo('')
+            }else{
             bmi= setBmi(response[0].bmi);  
             info= setInfo(response[0].info) 
+        }
+            
         })}
     }, [currentUser])
 
@@ -60,7 +66,12 @@ function Popups ({currentUser}){
             })
         })
         .then(response => response.json())
-        .then(response=>console.log(response))}
+        .then(response=>console.log(response))
+        // if(bmi===undefined){
+        //     setBmi('');
+        // setInfo('')}
+        
+        }
     }
 
     const reset= ()=>{

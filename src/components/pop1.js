@@ -2,14 +2,14 @@ import React, {useState, useEffect} from 'react';
 import { Form, Radio } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { currentUser } from '../redux/actions';
+import { setUserCpm } from '../redux/actions-cpm.jsx';
+
 
 import Popup from "reactjs-popup";
 
 import './pop1.css'
 
-
-
-function Pop ({currentUser}){
+function Pop ({currentUser, setUserCpm}){
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     const [age, setAge] = useState('');
@@ -26,9 +26,18 @@ function Pop ({currentUser}){
         })
         .then (response=> response.json())
         .then(response => {
+            if (response.length===0){
+                setPpm('');
+                setCpm('')
+            }
+            else{
             ppm= setPpm(response[0].ppm);  
-            cpm= setCpm(response[0].cpm) 
-        })}
+            cpm= setCpm(response[0].cpm) ;   
+            setUserCpm(response[0].cpm)
+        } 
+        })
+        
+    }
     }, [currentUser])
 
 
@@ -40,11 +49,14 @@ function Pop ({currentUser}){
             
             setPpm(ppm=(66.47 + (13.75* weight) + (5* height) - (6.75* age)).toFixed(0));
             setCpm(cpm=(ppm * active).toFixed(0));
+            
         }
         else{
             setPpm(ppm=(665.09 + (9.56* weight) + (1.85* height) - (4.67* age)).toFixed(0));
             setCpm(cpm=(ppm* active).toFixed(0));
+            
         }
+        setUserCpm(cpm)
         if (currentUser)
         {fetch('http://localhost:3003/calories', {
             method:'put',
@@ -56,8 +68,12 @@ function Pop ({currentUser}){
             })
         })
         .then(response => response.json())
-        .then(response=>console.log(response))}
-
+        .then(response=>console.log(response))
+        if(ppm===undefined){
+            setPpm('');
+            setCpm('')}
+       
+        }
     }
 
     const reset= ()=>{
@@ -135,4 +151,8 @@ const mapStateToProps = state => ({
     currentUser: state.user.currentUser
 });
 
-export default connect( mapStateToProps)(Pop);
+const mapDispatchToProps= dispatch=>({
+    setUserCpm: cpm => dispatch(setUserCpm(cpm))
+  })
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pop);

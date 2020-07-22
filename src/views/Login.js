@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useHistory} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import { setCurrentUser } from '../redux/actions'
+import { setCurrentUser } from '../redux/actions';
 import { connect } from 'react-redux';
 
 
@@ -48,7 +48,7 @@ function Login({setCurrentUser}) {
       <main>
         <section className="absolute w-full h-full">
           <div
-            className="absolute top-0 w-full h-full bg-gray-900"
+            className="absolute w-full h-full bg-gray-900"
             style={{
               backgroundImage:
                 "url(orange.jpg)",

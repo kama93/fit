@@ -108,8 +108,7 @@ app.put('/bmi', (req, res) => {
             }
         })
 })
-
-// get BMI from detabase
+// get bmi from detabase
 app.get('/bmi/:email', (req, res) => {
     const { email } = req.params;
     db.select('bmi', 'info')
@@ -155,7 +154,8 @@ app.get('/calories/:email', (req, res) => {
     db.select('cpm', 'ppm')
         .from('parameters')
         .where('email', '=', email)
-        .then(user => res.status(200).json(user))
+        .then(user =>{
+            res.status(200).json(user)})
         .catch(err => {
             res.status(400).json('error getting cpm and ppm')
         })
@@ -197,6 +197,47 @@ app.get('/bottle/:email', (req, res) => {
                 }
             }
         })
+})
+
+// food API key
+const API_KEY='1fa269c1643f4873b43a4d9b144b363c';
+
+// get meal plan from food API
+app.get('/meal/:cpm', (req,res)=>{
+    const { cpm }= req.params;
+    const baseURL = 'https://api.spoonacular.com/recipes/mealplans/generate?timeFrame=week&targetCalories=';
+    let url = ''.concat(baseURL, cpm, '&apiKey=', API_KEY);
+            fetch(url)
+            .then(result=>result.json())
+            .then(result => res.status(200).json(result))
+            .then(data=>console.log(data))
+            .catch(err=> res.status(400).json('fetch recipe issue'))            
+})
+
+// get recipe from food API
+app.get('/recipe/:id', (req,res)=>{
+    const API_KEY='1fa269c1643f4873b43a4d9b144b363c';
+    const { id }= req.params;
+    const baseURL = 'https://api.spoonacular.com/recipes/';
+    let url = ''.concat(baseURL, id, '/information?includeNutrition=false&apiKey=', API_KEY);
+            fetch(url)
+            .then(result=>result.json())
+            .then(result => res.status(200).json(result))
+            .then(data=>console.log(data))
+            .catch(err=> res.status(400).json('fetch meal issue'))            
+})
+
+// get recipe from food API base on ingredients
+app.get('/ingredients/:ingredient', (req,res)=>{
+    const API_KEY='1fa269c1643f4873b43a4d9b144b363c';
+    const { ingredient }= req.params;
+    const baseURL = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=';
+    let url = ''.concat(baseURL, ingredient, '&number=4&ignorePantry&apiKey=', API_KEY);
+            fetch(url)
+            .then(result=>result.json())
+            .then(result => res.status(200).json(result))
+            .then(data=>console.log(data))
+            .catch(err=> res.status(400).json('fetch recipe base on ingredients issue'))            
 })
 
 // Google Auth

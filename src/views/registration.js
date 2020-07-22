@@ -15,14 +15,14 @@ function Register({setCurrentUser}) {
     const history=useHistory();
 
     
-       useEffect(() => {
-        if ( localStorage.username !== "") {
-          setSignUpEmail(localStorage.username);
-          setSignUpPassword(localStorage.password);
-          setIsChecked(localStorage.checkbox);
-          history.push('/')
-        }
-      },[]);
+      //  useEffect(() => {
+      //   if ( localStorage.username !== "") {
+      //     setSignUpEmail(localStorage.username);
+      //     setSignUpPassword(localStorage.password);
+      //     setIsChecked(localStorage.checkbox);
+      //     history.push('/')
+      //   }
+      // },[]);
         
 
     const onEmailChange=(event)=> {
@@ -30,18 +30,16 @@ function Register({setCurrentUser}) {
     }
     const onConfirmChange=(event)=> {
         setConfirm(event.target.value)
-        if(confirm!==signUpPassword){
-          alert('Different password than above')
-        }
+        
     }
     const onPasswordChange=(event)=> {
         setSignUpPassword(event.target.value)
     }
 
-    const  onChangeCheckbox = event => {
-     setIsChecked(event.target.value)
-     loginSubmit()
-  }
+  //   const  onChangeCheckbox = event => {
+  //    setIsChecked(event.target.value)
+  //    loginSubmit()
+  // }
 
      const onSubmitSignUp=()=>{
        if (signUpPassword===confirm){
@@ -63,28 +61,31 @@ function Register({setCurrentUser}) {
            }
         })
        }
+       else{
+         alert('All fields must be completed.')
+       }
     }
 
-      const loginSubmit = () => {
-        if (isChecked===true && signUpEmail && signUpPassword) {
-            localStorage.username = signUpEmail
-            localStorage.password = signUpPassword
-            localStorage.checkbox = isChecked
-        }}
+      // const loginSubmit = () => {
+      //   if (isChecked===true && signUpEmail && signUpPassword) {
+      //       localStorage.username = signUpEmail
+      //       localStorage.password = signUpPassword
+      //       localStorage.checkbox = isChecked
+      //   }}
 
-    const stringifiedParams = queryString.stringify({
-      client_id: "121471132079-8bsql8r2dc48kb0rlia0n8p893obpm92.apps.googleusercontent.com",
-      redirect_uri: 'http://localhost:3000/google-landing',
-      scope: [
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile',
-      ].join(' '), // space seperated string
-      response_type: 'code',
-      access_type: 'offline',
-      prompt: 'consent',
-    });
+    // const stringifiedParams = queryString.stringify({
+    //   client_id: "121471132079-8bsql8r2dc48kb0rlia0n8p893obpm92.apps.googleusercontent.com",
+    //   redirect_uri: 'http://localhost:3000/google-landing',
+    //   scope: [
+    //     'https://www.googleapis.com/auth/userinfo.email',
+    //     'https://www.googleapis.com/auth/userinfo.profile',
+    //   ].join(' '), // space seperated string
+    //   response_type: 'code',
+    //   access_type: 'offline',
+    //   prompt: 'consent',
+    // });
     
-    const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`;
+    // const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`;
 
 
   return (
@@ -123,9 +124,9 @@ function Register({setCurrentUser}) {
                           className="w-5 mr-1"
                           src={require("../assets/img/google.svg")}
                         />
-                        <a href={googleLoginUrl}>
+                        
                         Google
-                        </a>
+                        
                       </button>
                       
  
@@ -202,7 +203,7 @@ function Register({setCurrentUser}) {
                             type="checkbox"
                             className="form-checkbox text-gray-800 ml-1 w-5 h-5"
                             style={{ transition: "all .15s ease" }}
-                            onChange={onChangeCheckbox}
+                            
                           />
                           <span className="ml-2 text-sm font-semibold text-gray-700">
                             Remember me
