@@ -67,10 +67,18 @@ function Popups ({currentUser}){
         })
         .then(response => response.json())
         .then(response=>console.log(response))
-        // if(bmi===undefined){
-        //     setBmi('');
-        // setInfo('')}
-        
+        }
+        if(weight)
+        {
+            fetch('http://localhost:3003/weight', {
+                        method:'put',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            email: currentUser.email,
+                            weight: weight })
+        })
+        .then (response=> response.json())
+        .then(response=>console.log(response))
         }
     }
 

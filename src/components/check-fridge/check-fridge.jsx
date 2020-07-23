@@ -4,9 +4,9 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion'
 import Navbar from '../Navbar.js';
-// import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
 
 import './check-fridge.css'
 
@@ -17,6 +17,7 @@ function Fridge (){
     const [ingredientThird, setIngredientThird]=useState();
     const [ingredientFourth, setIngredientFourth]=useState();
     const [ingredientFifth, setIngredientFifth]=useState();
+    const [recipe, setRecipe]=useState([]);
 
 
     const onFirstChange=(event)=> {
@@ -45,10 +46,32 @@ const checkMealRecipe=()=>{
                   headers: {'Content-Type': 'application/json'}
   })
   .then (response=> response.json())
-  .then(response=>setFridge(response))
+  .then(response=>{setFridge(response)
+        Promise.all(response.map(x =>
+                fetch('http://localhost:3003/recipe/' + x.id, {
+                    method:'get',
+                    headers: {'Content-Type': 'application/json'},
+                  })))
+
+        .then(response => Promise.all(response.map(x => x.json())))
+        .then(response=>{
+          Promise.all(response.map(x =>
+                    fetch('http://localhost:3003/instructions/', {
+                      method:'post',
+                      headers: {'Content-Type': 'application/json'},
+                      body: JSON.stringify({
+                          urls: x.sourceUrl,
+                      })
+                    })))
+          .then(response => Promise.all(response.map(x => x.json())))
+          .then(response => {
+              setRecipe(response);
+              console.log(response[0].instructions);
+          })
+      })
+  })
 }
 
-// const decoratedOnClick = useAccordionToggle(eventKey, onClick);
 
 
     return(
@@ -70,8 +93,10 @@ const checkMealRecipe=()=>{
                     <div className=" relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                       <div className="container-form-recipe rounded-t mb-0 px-6 py-6 ">
 
-                  {fridge.map(fridge=>
+                  {fridge.map(fridge, i=>
+                  
                   <Accordion defaultActiveKey="0">
+                 
                     <Card className="fridge-cart">
                       <Card.Header>
                       
@@ -89,6 +114,20 @@ const checkMealRecipe=()=>{
                           <li className="list-ingredients">
                             {ingredients.originalString}
                           </li>)}
+                          
+                          
+                          <Accordion defaultActiveKey="0">
+                          <Card className="fridge-cart">
+                           <Card.Header>
+                           <Accordion.Toggle as={Button} variant="link" eventKey="1" >
+                             Instructions
+                           </Accordion.Toggle>
+                         </Card.Header>
+                          <Accordion.Collapse eventKey="1" className="">
+                          <p>{recipe.length>1 && recipe.instructions[i]}</p></Accordion.Collapse>
+                          </Card>
+                  </Accordion>
+                          
                         </div>
                       </Accordion.Collapse>
                     </Card>
@@ -135,7 +174,10 @@ const checkMealRecipe=()=>{
               </Form.Row>
             </Form.Group>
                         
-            <div className="container-recipe"><button type="submit" className='button-fridge' onClick={()=>checkMealRecipe()}>Check recipes</button></div>
+            <div className="container-recipe"><Button variant="primary" type="submit" className="button-fridge" onClick={()=>checkMealRecipe()}>
+                        Check recipes
+                    </Button></div>
+           
           </div>
           </div>
           </div>

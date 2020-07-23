@@ -240,6 +240,55 @@ app.get('/ingredients/:ingredient', (req,res)=>{
             .catch(err=> res.status(400).json('fetch recipe base on ingredients issue'))            
 })
 
+// get recipe instructions base on recipe ID
+app.post('/instructions', (req,res)=>{
+    const API_KEY='1fa269c1643f4873b43a4d9b144b363c';
+    const { urls }= req.body;
+    const baseURL = 'https://api.spoonacular.com/recipes/extract?url=';
+    let url = ''.concat(baseURL, urls, '/&apiKey=', API_KEY);
+            fetch(url)
+            .then(result=>result.json())
+            .then(result => res.status(200).json(result))
+            .then(data=>console.log(data))
+            .catch(err=> res.status(400).json('fetch meal issue'))            
+})
+
+// put weight in database
+app.put('/weight', (req,res)=>{
+    const {email, weight }= req.body;
+    db.select('email')
+        .from('weight')
+        .where('email', '=', email)
+        .where('weight', '=', weight)
+        .then(db_res => {
+            if (db_res.length == 0) {
+                db('weight').insert({
+                        email:email,
+                        weight: weight,
+                        date: moment().utc().format()
+                    })
+                    .then(result => res.status(200).json('weight added'))
+                    .catch(err=> res.status(400).json('issue with adding weight'))           
+            } else {
+                res.status(200).json('weight already there')
+                res.catch(err=> res.status(400).json('issue with existing weight'))
+            }
+        })
+})
+
+// get weight for graph
+app.get('/weight/:email', (req, res)=>
+    { const { email }= req.params;
+    db.select('weight', 'date')
+        .from('weight')
+        .where('email', '=', email)
+    .then(user=>res.status(200).json(user))
+    .catch(err=> {
+        console.log(err)
+        res.status(400).json('error getting weight')
+    })}
+ )
+
 // Google Auth
 
 // app.get('/google-landing', (req, res) => {

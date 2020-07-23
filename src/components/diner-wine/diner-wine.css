@@ -1,0 +1,15 @@
+.dinner{
+    text-align: center;
+    margin-bottom: 2rem
+}
+
+.form-dinner{
+    height:80%
+}
+
+.form-dinner-wine{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column
+}
