@@ -41,3 +41,12 @@ td{
     align-items: center
 }
 
+.button-weekly-diet{
+    
+    height: 3rem;
+    width: 10rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    z-index: 999;
+    text-align: center
+}

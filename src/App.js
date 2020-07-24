@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './App.css';
-import Landing from "./views/Lading.js";
+import Landing from "./views/landing-page/Lading.js";
 import Login from "./views/Login.js";
 import Register from "./views/registration.js";
 import GoogleLanding from "./views/GoogleLanding";

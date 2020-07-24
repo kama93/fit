@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Gif from '../components/gif/gif'
-import Navbar from '../components/Navbar.js';
-import Footer from '../components/Footer.js';
-import Popups from '../components/pop';
-import Pop from '../components/pop1';
-import Pops from '../components/pop2';
+import Gif from '../../components/gif/gif'
+import Navbar from '../../components/nav-bar/Navbar.js';
+import Footer from '../../components/footer/Footer.js';
+import Popups from '../../components/bmi/pop';
+import Pop from '../../components/kcal/pop1';
+import Pops from '../../components/air/pop2';
 
 import './lading.css'
 
@@ -244,7 +244,7 @@ function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("../assets/img/team-1-800x800.jpg")}
+                    src={require("../../assets/img/team-1-800x800.jpg")}
                     className="shadow-lg rounded-full max-w-full mx-auto"
                     style={{ maxWidth: "120px" }}
                   />
@@ -282,7 +282,7 @@ function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("../assets/img/team-2-800x800.jpg")}
+                    src={require("../../assets/img/team-2-800x800.jpg")}
                     className="shadow-lg rounded-full max-w-full mx-auto"
                     style={{ maxWidth: "120px" }}
                   />
@@ -314,7 +314,7 @@ function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("../assets/img/team-3-800x800.jpg")}
+                    src={require("../../assets/img/team-3-800x800.jpg")}
                     className="shadow-lg rounded-full max-w-full mx-auto"
                     style={{ maxWidth: "120px" }}
                   />
@@ -352,7 +352,7 @@ function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("../assets/img/team-4-470x470.png")}
+                    src={require("../../assets/img/team-4-470x470.png")}
                     className="shadow-lg rounded-full max-w-full mx-auto"
                     style={{ maxWidth: "120px" }}
                   />

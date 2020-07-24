@@ -200,7 +200,7 @@ app.get('/bottle/:email', (req, res) => {
 })
 
 // food API key
-const API_KEY='1fa269c1643f4873b43a4d9b144b363c';
+const API_KEY='54823c8aad2846fe9ee700a82a90ed5a';
 
 // get meal plan from food API
 app.get('/meal/:cpm', (req,res)=>{
@@ -210,26 +210,37 @@ app.get('/meal/:cpm', (req,res)=>{
             fetch(url)
             .then(result=>result.json())
             .then(result => res.status(200).json(result))
-            .then(data=>console.log(data))
+            // .then(data=>console.log(data))
             .catch(err=> res.status(400).json('fetch recipe issue'))            
 })
 
-// get recipe from food API
+// get recipe from food API base on id
 app.get('/recipe/:id', (req,res)=>{
-    const API_KEY='1fa269c1643f4873b43a4d9b144b363c';
     const { id }= req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/';
     let url = ''.concat(baseURL, id, '/information?includeNutrition=false&apiKey=', API_KEY);
             fetch(url)
             .then(result=>result.json())
             .then(result => res.status(200).json(result))
-            .then(data=>console.log(data))
+            // .then(data=>console.log(data))
             .catch(err=> res.status(400).json('fetch meal issue'))            
 })
 
+// get random recipe from food API
+app.get('/random/:dinner', (req,res)=>{
+    const { dinner }= req.params;
+    const baseURL = 'https://api.spoonacular.com/recipes/random?number=1&tags=';
+    let url = ''.concat(baseURL, dinner, '&apiKey=', API_KEY);
+            fetch(url)
+            .then(result=>result.json())
+            .then(result => res.status(200).json(result))
+            // .then(data=>console.log(data))
+            .catch(err=> res.status(400).json('fetch random recipe issue'))            
+})
+
+
 // get recipe from food API base on ingredients
 app.get('/ingredients/:ingredient', (req,res)=>{
-    const API_KEY='1fa269c1643f4873b43a4d9b144b363c';
     const { ingredient }= req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=';
     let url = ''.concat(baseURL, ingredient, '&number=4&ignorePantry&apiKey=', API_KEY);
@@ -242,14 +253,13 @@ app.get('/ingredients/:ingredient', (req,res)=>{
 
 // get recipe instructions base on recipe ID
 app.post('/instructions', (req,res)=>{
-    const API_KEY='1fa269c1643f4873b43a4d9b144b363c';
     const { urls }= req.body;
     const baseURL = 'https://api.spoonacular.com/recipes/extract?url=';
     let url = ''.concat(baseURL, urls, '/&apiKey=', API_KEY);
             fetch(url)
             .then(result=>result.json())
             .then(result => res.status(200).json(result))
-            .then(data=>console.log(data))
+            
             .catch(err=> res.status(400).json('fetch meal issue'))            
 })
 
@@ -288,6 +298,40 @@ app.get('/weight/:email', (req, res)=>
         res.status(400).json('error getting weight')
     })}
  )
+
+//  get geolocation adress 
+app.get('/ip', (req, res)=>{
+    fetch('http://gd.geobytes.com/GetCityDetails')
+    .then(result=>result.json())
+            .then(result => res.status(200).json(result))
+            
+            .catch(err=> res.status(400).json('fetch IP issue')) 
+})
+
+// weater and air pollution API
+const API='5fdce0d7fc604853aecec53df40b606a';
+// get air pollution info
+app.get('/air/:lat/:lon', (req, res)=>{
+    
+    const { lat, lon }= req.params;
+    const baseURL = 'https://api.breezometer.com/air-quality/v2/current-conditions?lat=';
+    let url = ''.concat(baseURL, lat, '&lon=', lon, '&key=', API );
+    fetch(url)
+    .then(result=>result.json())
+    .then(result => res.status(200).json(result))
+    .catch(err=> res.status(400).json('fetch pollution issue')) 
+})
+
+// get air pollution info
+app.get('/weather/:lat/:lon', (req, res)=>{
+    const { lat, lon }= req.params;
+    const baseURL = 'https://api.breezometer.com/weather/v1/current-conditions?lat=';
+    let url = ''.concat(baseURL, lat, '&lon=', lon, '&key=', API );
+    fetch(url)
+    .then(result=>result.json())
+    .then(result => res.status(200).json(result))
+    .catch(err=> res.status(400).json('fetch pollution issue')) 
+})
 
 // Google Auth
 

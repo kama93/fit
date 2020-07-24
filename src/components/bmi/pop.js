@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import { currentUser } from '../redux/actions';
-
 import Popup from "reactjs-popup";
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import { currentUser } from '../../redux/actions';
 
 import './pop.css'
 
@@ -115,19 +117,33 @@ function Popups ({currentUser}){
         {bmi}
         {bmi?(<div>
             {info}<br/>
-            <button type="submit" className='button' onClick={()=> reset()}>Recheck</button>
+             <Button variant="primary" type="submit" className="button-bmi" onClick={()=> reset()}>
+            Recheck
+        </Button>
             </div>):
             (<div>
                 <div class="form-group">
-                    <label for="height" class="form-label">Your height</label>
-                    <input type="text" class="form-input" onChange={e => setHeight(e.target.value)}/>
-                </div>
-                <div class="form-group">
-                    <label for="website-url" class="form-label">Your weight</label>
-                    <input type="text" class="form-input" onChange={e => setWeight(e.target.value)}/>
-                </div>
-                <button type="submit" className='button' onClick={()=> checkBmi()}>Check</button>
-            </div>)}
+                <Form.Group>
+              <Form.Row>
+                <Col>
+                  <Form.Control size="sm" type="text" placeholder="Your height" onChange={e => setHeight(e.target.value)}/>
+                </Col>
+              </Form.Row>
+              <br/>
+              <Form.Row>
+                <Col>
+                  <Form.Control size="sm" type="text" placeholder="Your weight" onChange={e => setWeight(e.target.value)}/>
+                </Col>
+              </Form.Row>
+              
+               <Button variant="primary" type="submit" className="button-bmi" onClick={()=> checkBmi()}>
+                        Check BMI
+                    </Button>
+            
+            </Form.Group>
+           
+                   
+            </div></div>)}
         </div>
   </Popup>
        

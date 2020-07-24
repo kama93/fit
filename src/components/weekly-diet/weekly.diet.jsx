@@ -1,6 +1,7 @@
 import React, {useState, useEffect}  from 'react';
 import Table from 'react-bootstrap/Table';
-import Navbar from '../Navbar.js';
+import Button from 'react-bootstrap/Button';
+import Navbar from '../nav-bar/Navbar.js';
 
 import { cpmUser } from '../../redux/actions-cpm.jsx';
 import { connect } from 'react-redux';
@@ -28,7 +29,7 @@ function WeeklyDiet ({cpmUser}){
                       headers: {'Content-Type': 'application/json'}
       })
       .then (response=> response.json())
-      .then(response=> window.location.href = response.sourceUrl)
+      .then(response=> window.location.href = response.spoonacularSourceUrl)
   }
 
     const newPlan=()=>{
@@ -58,7 +59,8 @@ function WeeklyDiet ({cpmUser}){
                 <div className="w-full px-4">
                   <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                     <div className="rounded-t mb-0 px-6 py-6">
-                    
+        
+           
                     <Table striped bordered hover>
   <thead>
     <tr>
@@ -113,7 +115,11 @@ function WeeklyDiet ({cpmUser}){
     </tr>
   </tbody>
 </Table>
-<div className="container-button-new-plan"><button type="submit" className='button' onClick={()=>newPlan()}>New plan</button></div>
+
+
+<div className="container-button-new-plan"><Button variant="primary" type="submit" className="button" className="button-weekly-diet" onClick={()=>newPlan()}>New plan
+                        
+                    </Button></div>
                   </div>
                 </div>
               </div>
@@ -131,4 +137,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(WeeklyDiet);
-// export default WeeklyDiet;

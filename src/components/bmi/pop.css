@@ -1,5 +1,5 @@
 .container-BMI{
-  padding: 30px;
+  padding: 50px;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -98,3 +98,15 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
+
+  .button-bmi{
+    
+    height: 3rem;
+    width: 10rem;
+    font-size: 0.9rem;
+   margin-top: 2rem;
+    border-radius: 5px;
+
+    z-index: 999;
+    text-align: center
+}

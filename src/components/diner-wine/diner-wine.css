@@ -1,4 +1,4 @@
-.dinner{
+.dinner-form{
     text-align: center;
     margin-bottom: 2rem
 }
@@ -12,4 +12,31 @@
     align-items: center;
     justify-content: center;
     flex-direction: column
+}
+.container-dinner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.wine-dinner-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.wine{
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 1rem
+}
+
+.dinner{
+    font-size: 25px
+}
+
+a{
+    font-size: 25px
 }

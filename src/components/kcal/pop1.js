@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { Form, Radio } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { currentUser } from '../redux/actions';
-import { setUserCpm } from '../redux/actions-cpm.jsx';
+import { currentUser } from '../../redux/actions';
+import { setUserCpm } from '../../redux/actions-cpm.jsx';
+import Button from 'react-bootstrap/Button';
 
 
 import Popup from "reactjs-popup";
@@ -110,9 +111,13 @@ function Pop ({currentUser, setUserCpm}){
         {ppm?(<div>
             <p>Your basal metabolic rate (BMR):<br/>{ppm}</p><br/>
             <p>Your total metabolic rate (TMR):<br/>{cpm}</p><br/>
-            <button type="submit" className='button' onClick={()=> reset()}>Recheck</button>
+            <Button variant="primary" type="submit" className="button-bmi" onClick={()=> reset()}>
+            Recheck
+        </Button>
             
             </div>):
+
+
                 (<div>
                     <div class="form-gender">
                     <Form.Field control={Radio} label="Male" checked={gender === 'Male'} value="Male" onClick={() => setGender('Male')} className='gender' />
@@ -139,8 +144,11 @@ function Pop ({currentUser, setUserCpm}){
                     <option value='2'>high active level, everyday exercices</option>
                     <option value='2.4'>sportsman</option>
                 </Form.Field>
-                <button type="submit" className='button' onClick={()=>checkKcal()}>Check</button>
-                </div>)}
+                <Button variant="primary" type="submit" className="button-bmi" onClick={()=>checkKcal()}>
+                Check
+            </Button>
+                </div>)
+                }
         </div>
   </Popup>
        

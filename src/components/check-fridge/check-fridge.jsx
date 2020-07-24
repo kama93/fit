@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion'
-import Navbar from '../Navbar.js';
+import Navbar from '../nav-bar/Navbar.js';
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -93,7 +93,7 @@ const checkMealRecipe=()=>{
                     <div className=" relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                       <div className="container-form-recipe rounded-t mb-0 px-6 py-6 ">
 
-                  {fridge.map(fridge, i=>
+                  {fridge.map(fridge=>
                   
                   <Accordion defaultActiveKey="0">
                  
@@ -115,19 +115,19 @@ const checkMealRecipe=()=>{
                             {ingredients.originalString}
                           </li>)}
                           
-                          
-                          <Accordion defaultActiveKey="0">
-                          <Card className="fridge-cart">
-                           <Card.Header>
-                           <Accordion.Toggle as={Button} variant="link" eventKey="1" >
-                             Instructions
-                           </Accordion.Toggle>
-                         </Card.Header>
-                          <Accordion.Collapse eventKey="1" className="">
-                          <p>{recipe.length>1 && recipe.instructions[i]}</p></Accordion.Collapse>
-                          </Card>
-                  </Accordion>
-                          
+//                           
+{/* //                           <Accordion defaultActiveKey="0">
+//                           <Card className="fridge-cart">
+//                            <Card.Header>
+//                            <Accordion.Toggle as={Button} variant="link" eventKey="1" >
+//                              Instructions
+//                            </Accordion.Toggle>
+//                          </Card.Header>
+//                           <Accordion.Collapse eventKey="1" className="">
+//                           <p>{recipe.length>1 && recipe.instructions[i]}</p></Accordion.Collapse>
+//                           </Card>
+//                   </Accordion> */}
+//                           
                         </div>
                       </Accordion.Collapse>
                     </Card>
