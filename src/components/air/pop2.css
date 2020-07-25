@@ -54,3 +54,34 @@
     margin: 1rem;
   }
  
+  .container-air-pollution{
+    background-color: yellow;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding:1rem;
+    flex-direction:column;
+    margin: 4rem;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 10px;
+  }
+
+  .air-city{
+    font-size: 3rem
+  }
+
+  .air-aqi{
+    font-size: 5rem
+  }
+
+  .air-level{
+    font-size: 2.5rem
+  }
+  .container-yellow-container{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+
+  }

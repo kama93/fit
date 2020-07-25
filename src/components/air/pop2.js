@@ -7,7 +7,8 @@ import './pop2.css'
 
 function Pops (){
         let [air, setAir]=useState('');
-        let [weather, setWeater]=useState([]);
+        let [level, setLevel]=useState('');
+  
   useEffect(() => {
     fetch('http://localhost:3003/ip/', {
                     method:'get',
@@ -15,30 +16,37 @@ function Pops (){
     })
     .then (response=> response.json())
     .then (response=> {
-            let lat=response.geobyteslatitude;
-            let lon=response.geobyteslongitude;
-            console.log(lat, lon)
-            fetch('http://localhost:3003/air/' + lat + '/' + lon, {
+      console.log(response);
+        let city= response.geobytescity;
+        fetch('http://localhost:3003/air/' + city, {
               method:'get',
               headers: {'Content-Type': 'application/json'},
 })
 .then (response=> response.json())
 .then (response=> {
-     setAir(response.data.indexes.baqi.category)
+  console.log(response)
+     setAir(response);
      
-     fetch('http://localhost:3003/weather/' + lat + '/' + lon, {
-              method:'get',
-              headers: {'Content-Type': 'application/json'},
-})
-.then (response=> response.json())
-.then (response=> {
-  console.log(response.data)
-     setWeater(response.data)
-    
-        })
-        })
-              })
-
+    if(response.data.aqi <50){
+      setLevel('Good')
+    }
+    else if(response.data.aqi <100 && response.data.aqi >51){
+      setLevel('Moderate')
+    }
+    else if(response.data.aqi <150 && response.data.aqi >101){
+      setLevel('Unhealthy for Sensitive Groups')
+    }
+    else if(response.data.aqi <200 && response.data.aqi >151){
+      setLevel('Unhealthy')
+    }
+    else if(response.data.aqi <300 && response.data.aqi >201){
+      setLevel('Very Unhealthy')
+    }
+    else{
+      setLevel('Hazardous')
+    }
+    })
+      })
   }, []);
   
     return(
@@ -66,15 +74,13 @@ function Pops (){
     modal
     closeOnDocumentClick
     >
-    <div className='container-shopping'>
-    <h1 className='shopping'>Today Air Quality and Weather</h1>
-    <h2 className="air">Air Quality: {air}</h2>
-    <h2 className="air">Weather: 
-    {weather.weather_text}
-   <br/>
-   </h2>
-
-    </div>
+    {air?
+    (<div className="container-yellow-container">
+      <div className='container-air-pollution'>
+    <h3 className="air-city">{air.data.city.name}</h3>
+    <h1 className="air-aqi">{air.data.aqi}</h1>
+    <h2 className="air-level">{level}</h2>
+    </div></div>):(<div></div>)}
   </Popup>
        
 

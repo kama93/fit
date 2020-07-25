@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { Form, Radio } from 'semantic-ui-react';
+
 import { connect } from 'react-redux';
 import { currentUser } from '../../redux/actions';
 import { setUserCpm } from '../../redux/actions-cpm.jsx';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 
 
 import Popup from "reactjs-popup";
@@ -46,6 +48,7 @@ function Pop ({currentUser, setUserCpm}){
         if(!height || !weight || !gender || !age){
             alert('Please fill form!')
         }
+        else{
         if('Male'){
             
             setPpm(ppm=(66.47 + (13.75* weight) + (5* height) - (6.75* age)).toFixed(0));
@@ -74,7 +77,7 @@ function Pop ({currentUser, setUserCpm}){
             setPpm('');
             setCpm('')}
        
-        }
+        }}
     }
 
     const reset= ()=>{
@@ -116,35 +119,73 @@ function Pop ({currentUser, setUserCpm}){
         </Button>
             
             </div>):
-
+    
 
                 (<div>
-                    <div class="form-gender">
-                    <Form.Field control={Radio} label="Male" checked={gender === 'Male'} value="Male" onClick={() => setGender('Male')} className='gender' />
-                    <Form.Field control={Radio} label="Female" checked={gender === 'Female'} value="Female" onClick={() => setGender('Female')} className='gender'/>
-                </div>
-                <div class="form-group">
-                    <label for="height" className="form-label">Your height (cm)</label>
-                    <input type="text" className="form-input" onChange={e => setHeight(e.target.value)}/>
-                </div>
-                <div class="form-group">
-                    <label for="website-url" className="form-label">Your weight (kg)</label>
-                    <input type="text" className="form-input" onChange={e => setWeight(e.target.value)}/>
-                </div>
-                <div class="form-group">
-                    <label for="website-url" className="form-label">Your age</label>
-                    <input type="text" className="form-input" onChange={e => setAge(e.target.value)}/>
-                </div>
-                <Form.Field label='Pick up your active level' control='select' onChange={e => setActive(e.target.value)}>
-                    <option></option>
-                    <option value='1.2'>for laying people</option>
-                    <option value='1.4'>low active level, sitting work</option>
-                    <option value='1.6'>medium active level, standing work</option>
-                    <option value='1.75'>active live, regular exercices</option>
-                    <option value='2'>high active level, everyday exercices</option>
-                    <option value='2.4'>sportsman</option>
-                </Form.Field>
-                <Button variant="primary" type="submit" className="button-bmi" onClick={()=>checkKcal()}>
+                    <div class="container-kcal">
+                    <Form.Group>
+                    <Form.Row>         
+      <Col sm={10}>
+      <div className="form-gender">
+        <Form.Check
+          type="radio"
+          label="Male"
+          name="formHorizontalRadios"
+          id="formHorizontalRadios1"
+          value="Male"
+          onChange={e => setGender(e.target.value)}
+        />
+        <Form.Check
+          type="radio"
+          label="Female"
+          name="formHorizontalRadios"
+          id="formHorizontalRadios2"
+          value="Female"
+          onChange={e => setGender(e.target.value)}
+        /></div>
+        
+      </Col>
+      </Form.Row> 
+                    <Form.Row>
+                      <Col>
+                        <Form.Control size="sm" type="text" placeholder="Your height" onChange={e => setHeight(e.target.value)}/>
+                      </Col>
+                    </Form.Row>
+                    <br/>
+                    <Form.Row>
+                      <Col>
+                        <Form.Control size="sm" type="text" placeholder="Your weight" onChange={e => setWeight(e.target.value)}/>
+                      </Col>
+                    </Form.Row>
+                    <br/>
+                    <Form.Row>
+                      <Col>
+                        <Form.Control size="sm" type="text" placeholder="Your age" onChange={e => setAge(e.target.value)}/>
+                      </Col>
+                    </Form.Row>
+                    <br/>
+                    <Form.Row className="choose-option">
+                    <Col xs="auto" className="my-1">
+                   
+                    <Form.Control
+                      as="select"
+                      className="mr-sm-2"
+                      id="inlineFormCustomSelect"
+                      custom
+                      onChange={e => setActive(e.target.value)}
+                    >
+                      <option value="0">Choose your fitness level</option>
+                      <option  value="1.2">Low active level, sitting job</option>
+                      <option  value="1.3">Sitting work, exercices 1/2 a week</option>
+                      <option  value="1.5">Sitting work, exercices 3/4 a week</option>
+                      <option  value="1.8">physical work, exercices 3/4 a week</option>
+                      <option value="2">Sportsman</option>
+                    </Form.Control>
+                  </Col>
+                  </Form.Row>
+                    </Form.Group>
+                    </div>
+            <Button variant="primary" type="submit" className="button-kcal" onClick={()=>checkKcal()}>
                 Check
             </Button>
                 </div>)

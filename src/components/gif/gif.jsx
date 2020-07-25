@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Popup from "reactjs-popup";
 import { connect } from 'react-redux';
 import { currentUser } from '../../redux/actions';
+import Button from 'react-bootstrap/Button';
 
 import './gif.css'
 
@@ -18,14 +19,9 @@ const Gif = ({currentUser}) => {
         .then(response => {
             setNumber(response.numbot); 
         })}
-    }, [currentUser])
+    }, [currentUser]);
+
     const addWater = () => {
-        // if(number<4){
-        //     setNumber(number+1)
-        // }
-        // else{
-        //     setNumber(4)
-        // }
         setNumber(Math.min(number + 1, 4));
         if (currentUser)
         {fetch('http://localhost:3003/bottle', {
@@ -56,7 +52,10 @@ const Gif = ({currentUser}) => {
                      {Array(number).fill().map(x => (<img className="bottle" src="bottle.png" />))}
                 </div><br />
                 { number == 4 && (<div>Congrats! You have reached your goal.</div> )}
-                { number != 4 && <button type="submit" className='button button-gif' onClick={() => addWater()}>Add 250mls water</button>}
+                { number != 4 && <div className="container-button-new-plan"><Button variant="primary" type="submit" className="button" className="button-weekly-diet" onClick={()=>addWater()}>Add 250 mls
+                        
+                        </Button></div>
+                      }
             </div>
         </Popup>):(<div></div>)}
         </div>

@@ -56,8 +56,8 @@
 .form-gender{
         display: flex;
         flex-direction: row;
-        font-size:20px;
-        justify-content: center;
+        justify-content: space-between;
+        margin-bottom: 2rem
 }
 
 .gender{
@@ -121,3 +121,27 @@ select {
       transform: translate(-50%, -50%);
       text-align: center;
     }
+
+
+    .button-kcal{
+      height: 3rem;
+      width: 10rem;
+      font-size: 0.9rem;
+     margin-top: 9rem;
+      border-radius: 5px;
+  
+      z-index: 999;
+      text-align: center
+  
+    }
+
+    .choose-option{
+          text-align: center
+    }
+    .container-kcal{
+          display:flex;
+          justify-content: center;
+          align-items: center
+    }
+
+   

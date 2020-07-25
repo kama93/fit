@@ -78,12 +78,12 @@ const checkMealRecipe=()=>{
         <div className="meal-container">
             <Navbar transparent className="meal-nav"/>
             <div
-              className="absolute top-0 w-full h-full bg-gray-900 "
+              className="absolute top-0 w-full h-full bg-grey "
               style={{
                 backgroundImage:
                   "url(fridge.jpg)",
-                backgroundSize: "100%",
-                backgroundRepeat: "no-repeat"
+                  backgroundSize: 'cover',
+                backgroundRepeat: "no-repeat",
               }}
             ></div>
             {fridge?

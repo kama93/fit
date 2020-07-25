@@ -75,8 +75,8 @@ function Landing() {
 
             <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto" data-aos="zoom-in-right">
-                <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
-                <i className="fas fa-carrot icon"></i>
+                <div className=" p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-pink-300">
+                <i className="fas fa-carrot icon text-pink-600 bg-pink-300"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
                 Eating a balanced diet
@@ -92,22 +92,17 @@ function Landing() {
                 <br/>
                 (From NHS page)
                 </p>
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-                  className="font-bold text-gray-800 mt-8"
-                >
-                  Check our weekly diet planner!
-                </a>
+                
               </div>
 
               <div className="w-full md:w-4/12 px-4 mr-auto ml-auto" data-aos="flip-left" data-aos-delay="1000">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-pink-600">
+                <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-pink-600">
                   <img
                     alt="..."
                     src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                     className="w-full align-middle rounded-t-lg"
                   />
-                  <blockquote className="relative p-8 mb-4">
+                  <blockquote className="relative p-8 mb-4 container-health">
                     <svg
                       preserveAspectRatio="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +131,7 @@ function Landing() {
           </div>
         </section>
 
-        <section className="relative py-20">
+        <section className="relative py-20 background-section">
           <div
             className="bottom-auto left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
             style={{ height: "80px", transform: "translateZ(0)" }}
@@ -227,7 +222,7 @@ function Landing() {
         </section>
 
 
-        <section className="pt-20 pb-48">
+        <section className="pt-20 pb-48 background-section">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center text-center mb-24">
               <div className="w-full lg:w-6/12 px-4">

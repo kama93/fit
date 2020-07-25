@@ -36,8 +36,11 @@ function Popups ({currentUser}){
     const checkBmi=()=>{
         console.log(bmi)
         if(!height || !weight){
-            alert('Please fill form!')
-        }
+            alert('Please fill form!');
+            setBmi('');
+            setInfo('')
+            
+        }else
 
         if (height>100){
           setBmi(bmi = (weight/(Math.pow(height/100, 2))).toFixed(2))

@@ -6,3 +6,11 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 .icon{
     font-size: 40px
 }
+
+.background-section{
+    background-color: #ffffff !important
+}
+
+.container-health{
+    background-color: #d53f8c
+}

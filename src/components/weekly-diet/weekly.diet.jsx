@@ -2,6 +2,7 @@ import React, {useState, useEffect}  from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Navbar from '../nav-bar/Navbar.js';
+import PrintProvider, { Print, NoPrint } from 'react-easy-print';
 
 import { cpmUser } from '../../redux/actions-cpm.jsx';
 import { connect } from 'react-redux';
@@ -13,15 +14,24 @@ function WeeklyDiet ({cpmUser}){
     const [recipe, setRecipe]=useState();
     
 
+    useEffect(() => {
+      if(cpmUser)
+        {fetch('http://localhost:3003/meal/' + cpmUser, {
+                        method:'get',
+                        headers: {'Content-Type': 'application/json'}
+        })
+        .then (response=> response.json())
+        .then(response => setMeal(response.items.map(x => ({ ...x, 'value': JSON.parse(x.value)}))))}
+    }, [])
+
     const checkMeal=()=>{
-        fetch('http://localhost:3003/meal/' + cpmUser, {
+      fetch('http://localhost:3003/meal/' + cpmUser, {
                         method:'get',
                         headers: {'Content-Type': 'application/json'}
         })
         .then (response=> response.json())
         .then(response => setMeal(response.items.map(x => ({ ...x, 'value': JSON.parse(x.value)}))))
     }
-
     const checkRecipe=(x)=>{
       console.log(x);
       fetch('http://localhost:3003/recipe/' + x, {
@@ -29,7 +39,7 @@ function WeeklyDiet ({cpmUser}){
                       headers: {'Content-Type': 'application/json'}
       })
       .then (response=> response.json())
-      .then(response=> window.location.href = response.spoonacularSourceUrl)
+      .then(response=> window.location.href = response.sourceUrl)
   }
 
     const newPlan=()=>{
@@ -38,8 +48,9 @@ function WeeklyDiet ({cpmUser}){
 
 
     return(
-       
-        
+      <PrintProvider>
+         <NoPrint>
+         
         <div className="meal-container">
             <Navbar transparent className="meal-nav"/>
           
@@ -53,6 +64,7 @@ function WeeklyDiet ({cpmUser}){
                 backgroundRepeat: "no-repeat"
               }}
             ></div>
+            
              {meal?
              (<div className="container mx-auto px-4 h-full">
               <div className="flex content-center items-center justify-center h-full">
@@ -60,7 +72,8 @@ function WeeklyDiet ({cpmUser}){
                   <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                     <div className="rounded-t mb-0 px-6 py-6">
         
-           
+                    <Print single name="table diet">
+
                     <Table striped bordered hover>
   <thead>
     <tr>
@@ -115,7 +128,7 @@ function WeeklyDiet ({cpmUser}){
     </tr>
   </tbody>
 </Table>
-
+</Print>
 
 <div className="container-button-new-plan"><Button variant="primary" type="submit" className="button" className="button-weekly-diet" onClick={()=>newPlan()}>New plan
                         
@@ -125,11 +138,15 @@ function WeeklyDiet ({cpmUser}){
               </div>
             </div>
             
-            </div>):(<div className="container-meal"><button type="submit" className='button-meal' onClick={()=> checkMeal()}>Check your meal plan</button></div>)}
+            </div>):(<div className="container-meal">
+            <button type="submit" className='button-meal' onClick={()=>checkMeal()}>Check your meal plan</button></div>)}
           
         </div>
-   
+         
+        </NoPrint>
+        </PrintProvider>
     )
+  
 }
 
 const mapStateToProps = state => ({

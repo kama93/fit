@@ -308,25 +308,12 @@ app.get('/ip', (req, res)=>{
             .catch(err=> res.status(400).json('fetch IP issue')) 
 })
 
-// weater and air pollution API
-const API='5fdce0d7fc604853aecec53df40b606a';
 // get air pollution info
-app.get('/air/:lat/:lon', (req, res)=>{
-    
-    const { lat, lon }= req.params;
-    const baseURL = 'https://api.breezometer.com/air-quality/v2/current-conditions?lat=';
-    let url = ''.concat(baseURL, lat, '&lon=', lon, '&key=', API );
-    fetch(url)
-    .then(result=>result.json())
-    .then(result => res.status(200).json(result))
-    .catch(err=> res.status(400).json('fetch pollution issue')) 
-})
-
-// get air pollution info
-app.get('/weather/:lat/:lon', (req, res)=>{
-    const { lat, lon }= req.params;
-    const baseURL = 'https://api.breezometer.com/weather/v1/current-conditions?lat=';
-    let url = ''.concat(baseURL, lat, '&lon=', lon, '&key=', API );
+app.get('/air/:city', (req, res)=>{
+    const token= 'c8650147058d3f8365e4405ae656ee7f2c91ac9f'
+    const { city }= req.params;
+    const baseURL = 'https://api.waqi.info/feed/';
+    let url = ''.concat(baseURL, city, '/?token=', token );
     fetch(url)
     .then(result=>result.json())
     .then(result => res.status(200).json(result))
