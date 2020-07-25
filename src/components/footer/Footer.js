@@ -50,6 +50,7 @@ export default function Footer() {
       <p className="link-resources">https://fontawesome.com/<br/></p>
       <p className="link-resources">https://www.nhs.uk/<br/></p>
       <p className="link-resources">https://michalsnik.github.io/aos/<br/></p>
+      <p className="link-resources">https://www.emailjs.com/<br/></p>
       </Card.Body>
     </Accordion.Collapse>
   </Card>
