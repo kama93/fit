@@ -13,6 +13,7 @@
     justify-content: center;
     flex-direction: column
 }
+
 .container-dinner{
     display: flex;
     flex-direction: column;

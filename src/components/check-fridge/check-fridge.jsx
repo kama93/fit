@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion'
-import Navbar from '../nav-bar/Navbar.js';
-
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+
+import Navbar from '../nav-bar/Navbar.js';
+import Loader from 'react-loader';
 
 import './check-fridge.css'
 
@@ -19,7 +19,7 @@ function Fridge() {
   const [ingredientFifth, setIngredientFifth] = useState();
   const [recipe, setRecipe] = useState([]);
   const [ingredient, setIngredient] = useState([]);
-
+  const [loaded, setLoaded] = useState(false);
 
   const onFirstChange = (event) => {
     setIngredientFirst(event.target.value)
@@ -41,9 +41,10 @@ function Fridge() {
     setIngredientFifth(event.target.value)
   }
 
+  // looking for meals base on given ingredients
   const checkMealRecipe = () => {
     const ingredients = [ingredientFirst, ingredientSecond, ingredientThird,
-                         ingredientFourth, ingredientFifth]
+      ingredientFourth, ingredientFifth]
     fetch('http://localhost:3003/ingredients/' + ingredients.filter(x => !!x).join(","), {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
@@ -52,14 +53,15 @@ function Fridge() {
       .then(response => {
         setFridge(response)
         Promise.all(response.map(x =>
+          // checking recipe id
           fetch('http://localhost:3003/recipe/' + x.id, {
             method: 'get',
             headers: { 'Content-Type': 'application/json' },
           })))
-
           .then(response => Promise.all(response.map(x => x.json())))
           .then(response => {
             Promise.all(response.map(x =>
+              // getting instructions and ingredients
               fetch('http://localhost:3003/instructions/', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
@@ -71,12 +73,11 @@ function Fridge() {
               .then(response => {
                 setRecipe(response);
                 setIngredient(response);
+                setLoaded(true)
               })
           })
       })
   }
-
-
 
   return (
     <div className="meal-container">
@@ -96,42 +97,38 @@ function Fridge() {
             <div className="w-full px-4">
               <div className=" relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                 <div className="container-form-recipe rounded-t mb-0 px-6 py-6 ">
-
                   {fridge.map((x, i) => (
                     <Accordion defaultActiveKey="0">
-
                       <Card className="fridge-cart">
                         <Card.Header>
-
                           <Accordion.Toggle as={Button} variant="link" eventKey="1" className="fridge-title">
                             {x.title}
-
                           </Accordion.Toggle>
                         </Card.Header>
-
                         <Accordion.Collapse eventKey="1" className="fridge-insisde">
-
                           <div>
-                            <img src={x.image} />
-                            <ul>
-                            {ingredient.length != 0 && ingredient[i].extendedIngredients.map(y=>
-                                <li className="list-ingredients">
-                                  {y.original}
-                                </li>)}
-                            </ul>
-                            <div>
-                            <Accordion defaultActiveKey="0">
-                                <Card className="fridge-cart">
-                                  <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="1" >
-                                      Instructions
-                                  </Accordion.Toggle>
-                                  </Card.Header>
-                                  <Accordion.Collapse eventKey="1" className="">
-                                    <div className="instruction-textarea">{recipe.length != 0 && recipe[i].instructions}</div></Accordion.Collapse>
-                                </Card>
-                              </Accordion>
-                            </div>
+                            <img src={x.image} alt='food'/>
+                            <Loader loaded={loaded}>
+                              <ul>
+                                {ingredient.length !== 0 && ingredient[i].extendedIngredients.map(y =>
+                                  <li className="list-ingredients">
+                                    {y.original}
+                                  </li>)}
+                              </ul>
+                              <div>
+                                <Accordion defaultActiveKey="0">
+                                  <Card className="fridge-cart-inside">
+                                    <Card.Header>
+                                      <Accordion.Toggle as={Button} variant="link" eventKey="1" >
+                                        <h1 className="instruction-headline">Instructions</h1>
+                                      </Accordion.Toggle>
+                                    </Card.Header>
+                                    <Accordion.Collapse eventKey="1" className="">
+                                      <div className="instruction-textarea">{recipe.length !== 0 && recipe[i].instructions}</div></Accordion.Collapse>
+                                  </Card>
+                                </Accordion>
+                              </div>
+                            </Loader>
                           </div>
                         </Accordion.Collapse>
                       </Card>
@@ -177,21 +174,16 @@ function Fridge() {
                         </Col>
                       </Form.Row>
                     </Form.Group>
-
                     <div className="container-recipe"><Button variant="primary" type="submit" className="button-fridge" onClick={() => checkMealRecipe()}>
                       Check recipes
                     </Button></div>
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         )}
-
     </div>
-
   )
 }
 

@@ -1,50 +1,47 @@
-import React, {useState} from "react";
-import { useHistory} from 'react-router-dom';
+import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-import { setCurrentUser } from '../redux/actions';
 import { connect } from 'react-redux';
+import { setCurrentUser } from '../redux/actions';
 
-
-
-function Login({setCurrentUser}) {
+function Login({ setCurrentUser }) {
   const [signInEmail, setSignInEmail] = useState('');
-    const [signInPassword, setSignInPassword] = useState('');
+  const [signInPassword, setSignInPassword] = useState('');
 
-    const history=useHistory();
+  const history = useHistory();
 
-    const onEmailChange=(event)=> {
-        setSignInEmail(event.target.value)
-    }
-    
-    const onPasswordChange=(event)=> {
-        setSignInPassword(event.target.value)
-    }
+  const onEmailChange = (event) => {
+    setSignInEmail(event.target.value)
+  }
 
-    const onSubmitSignIn=()=>{
-        fetch('http://localhost:3003/signin', {
-            method:'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                email: signInEmail,
-                password: signInPassword,
-            })
-        })
-        .then(response => response.json())
-        .then(user => {
-            if(user.id){
-                setCurrentUser(user);
-                history.push('/')
-            }
-            else {
-                alert('Wrong password or email')
-            }
-        })
-    }
-    
+  const onPasswordChange = (event) => {
+    setSignInPassword(event.target.value)
+  }
+
+  const onSubmitSignIn = () => {
+    // log in authorisation
+    fetch('http://localhost:3003/signin', {
+      method: 'put',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: signInEmail,
+        password: signInPassword,
+      })
+    })
+      .then(response => response.json())
+      .then(user => {
+        if (user.id) {
+          setCurrentUser(user);
+          history.push('/')
+        }
+        else {
+          alert('Wrong password or email')
+        }
+      })
+  }
+
   return (
     <>
-
       <main>
         <section className="absolute w-full h-full">
           <div
@@ -92,7 +89,6 @@ function Login({setCurrentUser}) {
                         Facebook
                       </button>
                     </div>
-                    
                     <hr className="mt-6 border-b-1 border-gray-400" />
                   </div>
                   <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -115,7 +111,6 @@ function Login({setCurrentUser}) {
                           onChange={onEmailChange}
                         />
                       </div>
-
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -144,7 +139,6 @@ function Login({setCurrentUser}) {
                           </span>
                         </label>
                       </div>
-
                       <div className="text-center mt-6">
                         <button
                           className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
@@ -187,7 +181,7 @@ function Login({setCurrentUser}) {
   );
 }
 
-const mapDispatchToProps= dispatch=>({
+const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 

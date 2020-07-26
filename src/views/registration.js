@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import * as queryString from 'query-string';
-
 import { setCurrentUser } from '../redux/actions';
 import { setUserCpm } from '../redux/actions-cpm';
 import { connect } from 'react-redux';
@@ -11,11 +10,8 @@ function Register({ setCurrentUser, setUserCpm }) {
   const [signUpEmail, setSignUpEmail] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [isChecked, setIsChecked] = useState(false)
 
   const history = useHistory();
-
-
 
   const onEmailChange = (event) => {
     setSignUpEmail(event.target.value)
@@ -34,6 +30,7 @@ function Register({ setCurrentUser, setUserCpm }) {
   // }
 
   const onSubmitSignUp = () => {
+    // sending registration info to database
     if (signUpPassword === confirm) {
       fetch('http://localhost:3003/signin', {
         method: 'post',
@@ -59,8 +56,6 @@ function Register({ setCurrentUser, setUserCpm }) {
     }
   }
 
-
-
   // const stringifiedParams = queryString.stringify({
   //   client_id: "121471132079-8bsql8r2dc48kb0rlia0n8p893obpm92.apps.googleusercontent.com",
   //   redirect_uri: 'http://localhost:3000/google-landing',
@@ -78,7 +73,6 @@ function Register({ setCurrentUser, setUserCpm }) {
 
   return (
     <>
-
       <main>
         <section className="absolute w-full h-full">
           <div
@@ -101,7 +95,6 @@ function Register({ setCurrentUser, setUserCpm }) {
                       </h6>
                     </div>
                     <div className="btn-wrapper text-center">
-
                       <button
                         className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
                         type="button"
@@ -112,12 +105,8 @@ function Register({ setCurrentUser, setUserCpm }) {
                           className="w-5 mr-1"
                           src={require("../assets/img/google.svg")}
                         />
-
                         Google
-
                       </button>
-
-
                       <button
                         className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
                         type="button"
@@ -153,7 +142,6 @@ function Register({ setCurrentUser, setUserCpm }) {
                           onChange={onEmailChange}
                         />
                       </div>
-
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -167,7 +155,6 @@ function Register({ setCurrentUser, setUserCpm }) {
                           placeholder="Password"
                           style={{ transition: "all .15s ease" }}
                           onChange={onPasswordChange} />
-
                       </div>
                       <div className="relative w-full mb-3">
                         <label
@@ -191,14 +178,12 @@ function Register({ setCurrentUser, setUserCpm }) {
                             type="checkbox"
                             className="form-checkbox text-gray-800 ml-1 w-5 h-5"
                             style={{ transition: "all .15s ease" }}
-
                           />
                           <span className="ml-2 text-sm font-semibold text-gray-700">
                             Remember me
                           </span>
                         </label>
                       </div>
-
                       <div className="text-center mt-6">
                         <button
                           className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
@@ -240,10 +225,12 @@ function Register({ setCurrentUser, setUserCpm }) {
     </>
   );
 }
+
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentUser: user => dispatch(setCurrentUser(user)),
     setUserCpm: cpm => dispatch(setUserCpm(cpm))
   }
 }
+
 export default connect(null, mapDispatchToProps)(Register);

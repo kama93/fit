@@ -4,7 +4,7 @@
     text-align: center;
     flex-direction: column;
     align-items: center
-  }
+}
   
 .form-group{
       height: 100px;
@@ -34,8 +34,7 @@
       width: 100px;
       border: 2px solid black;
       border-radius: 5px;
-      margin-top: 2rem;
-      
+      margin-top: 2rem;      
 }
     
 .button:hover{
@@ -81,18 +80,19 @@ select {
       display: block;
       outline: none;
       text-align: center;
-    }
-    .container-pop {
+}
+
+.container-pop {
       position: relative;
-    }
+}
     
-    .image-pop {
+.image-pop {
       display: block;
       width: 100%;
       height: auto;
-    }
+}
     
-    .overlay-blue{
+.overlay-blue{
       position: absolute;
       top: 0;
       bottom: 0;
@@ -104,13 +104,13 @@ select {
       transition: .5s ease;
       background-color:#63b3ed;
       border-radius: 5px;
-    }
+}
     
-    .container-pop:hover .overlay-blue {
+.container-pop:hover .overlay-blue {
       opacity: 1;
-    }
+}
     
-    .text {
+.text {
       color: white;
       font-size: 30px;
       position: absolute;
@@ -120,28 +120,26 @@ select {
       -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
       text-align: center;
-    }
+}
 
-
-    .button-kcal{
+.button-kcal{
       height: 3rem;
       width: 10rem;
       font-size: 0.9rem;
-     margin-top: 9rem;
+      margin-top: 9rem;
       border-radius: 5px;
-  
       z-index: 999;
       text-align: center
-  
-    }
+  }
 
-    .choose-option{
+.choose-option{
           text-align: center
-    }
-    .container-kcal{
+}
+
+.container-kcal{
           display:flex;
           justify-content: center;
           align-items: center
-    }
+}
 
    

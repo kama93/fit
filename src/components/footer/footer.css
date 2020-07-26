@@ -1,3 +1,14 @@
 .resources{
     text-align: center
 }
+
+.footer-pages{
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.container-links{
+    padding: 2rem
+}

@@ -10,17 +10,18 @@
     flex-direction: column;
     align-items: center
 }
+
 .container-pop {
     position: relative;
-  }
+}
   
-  .image-pop {
+.image-pop {
     display: block;
     width: 100%;
     height: auto;
-  }
+}
   
-  .overlay-green {
+.overlay-green {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -32,13 +33,13 @@
     transition: .5s ease;
     background-color: #68d391;
     border-radius: 5px;
-  }
+}
   
-  .container-pop:hover .overlay-green {
+.container-pop:hover .overlay-green {
     opacity: 1;
-  }
+}
   
-  .text {
+.text {
     color: white;
     font-size: 30px;
     position: absolute;
@@ -48,13 +49,13 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
-  }
+}
 
-  .air{
+.air{
     margin: 1rem;
-  }
+}
  
-  .container-air-pollution{
+.container-air-pollution{
     background-color: yellow;
     display: flex;
     text-align: center;
@@ -66,22 +67,22 @@
     width: 15rem;
     height: 15rem;
     border-radius: 10px;
-  }
+}
 
-  .air-city{
+.air-city{
     font-size: 3rem
-  }
+}
 
-  .air-aqi{
+.air-aqi{
     font-size: 5rem
-  }
+}
 
-  .air-level{
+.air-level{
     font-size: 2.5rem
-  }
-  .container-yellow-container{
+}
+  
+.container-yellow-container{
     display: flex;
     text-align: center;
     justify-content: center;
-
   }

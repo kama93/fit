@@ -1,22 +1,21 @@
 import React from "react";
+import AOS from 'aos'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../../redux/actions';
 
-import AOS from 'aos'
 import './nav.css'
 
 AOS.init({
-  delay: 200, // values from 0 to 3000, with step 50ms
-  duration: 1500, // values from 0 to 3000, with step 50ms
-  once: false, // whether animation should happen only once - while scrolling down
+  delay: 200,
+  duration: 1500,
+  once: false,
   mirror: false,
 });
 
 function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  
-  
+
   return (
     <>
       <nav
@@ -28,10 +27,9 @@ function Navbar(props) {
         }
       >
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start" data-aos="fade-right">
-          <Link to='./'>
-            <img src="food.png" alt='food logo' className='logo' />
+            <Link to='./'>
+              <img src="food.png" alt='food logo' className='logo' />
             </Link>
             <button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -55,9 +53,8 @@ function Navbar(props) {
             id="example-navbar-warning"
           >
             <ul className="flex flex-col lg:flex-row list-none mr-auto">
-
             </ul>
-            {props.currentUser?
+            {props.currentUser ?
               (<ul className="flex flex-col lg:flex-row list-none lg:ml-auto" data-aos="fade-left">
                 <li className="flex items-center">
                   <Link
@@ -67,7 +64,7 @@ function Navbar(props) {
                         : "text-gray-800 hover:text-gray-600") +
                       " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                     }
-                    to= './diet'
+                    to='./diet'
                   >
                     <i
                       className={
@@ -81,15 +78,15 @@ function Navbar(props) {
                 </Link>
                 </li>
                 <li className="flex items-center">
-                <Link
-                className={
-                  (props.transparent
-                    ? "lg:text-white lg:hover:text-gray-300 text-gray-800"
-                    : "text-gray-800 hover:text-gray-600") +
-                  " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                }
-                to= './tracking'
-              >
+                  <Link
+                    className={
+                      (props.transparent
+                        ? "lg:text-white lg:hover:text-gray-300 text-gray-800"
+                        : "text-gray-800 hover:text-gray-600") +
+                      " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                    }
+                    to='./tracking'
+                  >
                     <i
                       className={
                         (props.transparent
@@ -98,12 +95,10 @@ function Navbar(props) {
                         " far fa-file-alt text-lg leading-lg mr-2"
                       }
                     />{" "}
-                    Progress tracking 
-           </Link>
+                    Progress tracking
+                  </Link>
                 </li>
-
                 <li className="flex items-center">
-
                   <Link
                     className={
                       (props.transparent
@@ -112,7 +107,6 @@ function Navbar(props) {
                       " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                     }
                     to='./fridge'
-                   
                   >
                     <i
                       className={
@@ -126,7 +120,6 @@ function Navbar(props) {
                   </Link>
                 </li>
                 <li className="flex items-center">
-
                   <Link
                     className={
                       (props.transparent
@@ -135,7 +128,6 @@ function Navbar(props) {
                       " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                     }
                     to='./diner'
-                   
                   >
                     <i
                       className={
@@ -148,9 +140,7 @@ function Navbar(props) {
                     <p>Diner idea</p>
                   </Link>
                 </li>
-                
                 <li className="flex items-center">
-
                   <Link
                     className={
                       (props.transparent
@@ -159,7 +149,7 @@ function Navbar(props) {
                       " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                     }
                     to='./login'
-                    onClick={()=>props.setCurrentUser(null)}
+                    onClick={() => props.setCurrentUser(null)}
                   >
                     <i
                       className={
@@ -175,7 +165,6 @@ function Navbar(props) {
               </ul>) :
               (<ul>
                 <li className="flex items-center">
-
                   <Link
                     className={
                       (props.transparent
@@ -220,17 +209,16 @@ function Navbar(props) {
               </ul>)}
           </div>
         </div>
-      </nav>                                       
+      </nav>
     </>
-      );
-    }
-    
+  );
+}
+
 const mapStateToProps = state => ({
-        currentUser: state.user.currentUser
-    });
-const mapDispatchToProps= dispatch=>({
-        setCurrentUser: user => dispatch(setCurrentUser(user))
-    })
-    
-    
-    export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+  currentUser: state.user.currentUser
+});
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

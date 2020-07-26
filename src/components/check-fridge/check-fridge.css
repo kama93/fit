@@ -1,10 +1,7 @@
-
 .button-fridge{
-    
     height: 3rem;
     width: 10rem;
     font-size: 0.9rem;
-   
     border-radius: 5px;
     margin-top: 9rem;
     z-index: 999;
@@ -15,14 +12,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 2rem
-   
+    margin-top: 2rem  
 }
 
 .form-control{
   text-align: center;
   width:100%;
-
 }
 
 .container-recipe{
@@ -47,3 +42,16 @@
     color: grey
 }
 
+.instruction-headline{
+    color: grey;
+    text-decoration: none;
+}
+
+.instruction-textarea{
+    padding: 2rem;
+    text-align: center
+}
+
+.fridge-cart-inside{
+    margin-top: 2rem
+}

@@ -15,7 +15,6 @@ const Email = () => {
     return values.name && values.email && values.message
   };
 
-
   const sendEmail = (e) => {
     var template_params = {
       "reply_to": values.email,
@@ -24,8 +23,7 @@ const Email = () => {
       "message_html": values.message
     }
 
-    // var service_id = "default_service";
-    // var template_id = "template_LwFpgbFJ";
+    // sending info to emailjs app
     emailjs.send("default_service", 'template_GAYTT55A', template_params, 'user_yS78SCiBWhWaX1xdnDEIn')
       .then((result) => {
         setValues({
@@ -44,8 +42,6 @@ const Email = () => {
       sendEmail(e);
     }
   };
-
-
 
   return (
     <div className="container mx-auto px-4">
@@ -77,7 +73,6 @@ const Email = () => {
                   value={values.name}
                 />
               </div>
-
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -96,7 +91,6 @@ const Email = () => {
                   value={values.email}
                 />
               </div>
-
               <div className="relative w-full mb-3">
                 <label
                   className="block uppercase text-gray-700 text-xs font-bold mb-2"
