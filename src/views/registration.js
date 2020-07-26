@@ -1,91 +1,79 @@
-import React, {useState, useEffect} from "react";
-import { useHistory} from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import * as queryString from 'query-string';
 
 import { setCurrentUser } from '../redux/actions';
+import { setUserCpm } from '../redux/actions-cpm';
 import { connect } from 'react-redux';
 
-function Register({setCurrentUser}) {
-    const [signUpEmail, setSignUpEmail]= useState('');
-    const [signUpPassword, setSignUpPassword]= useState('');
-    const [confirm, setConfirm]= useState('');
-    const [isChecked, setIsChecked]=useState(false)
+function Register({ setCurrentUser, setUserCpm }) {
+  const [signUpEmail, setSignUpEmail] = useState('');
+  const [signUpPassword, setSignUpPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [isChecked, setIsChecked] = useState(false)
 
-    const history=useHistory();
+  const history = useHistory();
 
-    
-      //  useEffect(() => {
-      //   if ( localStorage.username !== "") {
-      //     setSignUpEmail(localStorage.username);
-      //     setSignUpPassword(localStorage.password);
-      //     setIsChecked(localStorage.checkbox);
-      //     history.push('/')
-      //   }
-      // },[]);
-        
 
-    const onEmailChange=(event)=> {
-        setSignUpEmail(event.target.value)
-    }
-    const onConfirmChange=(event)=> {
-        setConfirm(event.target.value)
-        
-    }
-    const onPasswordChange=(event)=> {
-        setSignUpPassword(event.target.value)
-    }
+
+  const onEmailChange = (event) => {
+    setSignUpEmail(event.target.value)
+  }
+  const onConfirmChange = (event) => {
+    setConfirm(event.target.value)
+
+  }
+  const onPasswordChange = (event) => {
+    setSignUpPassword(event.target.value)
+  }
 
   //   const  onChangeCheckbox = event => {
   //    setIsChecked(event.target.value)
   //    loginSubmit()
   // }
 
-     const onSubmitSignUp=()=>{
-       if (signUpPassword===confirm){
-        fetch('http://localhost:3003/signin', {
-            method:'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                email: signUpEmail,
-                password: signUpPassword,
-            })
+  const onSubmitSignUp = () => {
+    if (signUpPassword === confirm) {
+      fetch('http://localhost:3003/signin', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: signUpEmail,
+          password: signUpPassword,
         })
-        .then (response=> response.json())
-        .then(user => {                                
-            if (user.id) {
-                setCurrentUser(user)
-                history.push('/')
-           } else {
+      })
+        .then(response => response.json())
+        .then(user => {
+          if (user.id) {
+            setCurrentUser(user);
+            setUserCpm(null);
+            history.push('/')
+          } else {
             alert('you need register')
-           }
+          }
         })
-       }
-       else{
-         alert('All fields must be completed.')
-       }
     }
+    else {
+      alert('All fields must be completed.')
+    }
+  }
 
-      // const loginSubmit = () => {
-      //   if (isChecked===true && signUpEmail && signUpPassword) {
-      //       localStorage.username = signUpEmail
-      //       localStorage.password = signUpPassword
-      //       localStorage.checkbox = isChecked
-      //   }}
 
-    // const stringifiedParams = queryString.stringify({
-    //   client_id: "121471132079-8bsql8r2dc48kb0rlia0n8p893obpm92.apps.googleusercontent.com",
-    //   redirect_uri: 'http://localhost:3000/google-landing',
-    //   scope: [
-    //     'https://www.googleapis.com/auth/userinfo.email',
-    //     'https://www.googleapis.com/auth/userinfo.profile',
-    //   ].join(' '), // space seperated string
-    //   response_type: 'code',
-    //   access_type: 'offline',
-    //   prompt: 'consent',
-    // });
-    
-    // const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`;
+
+  // const stringifiedParams = queryString.stringify({
+  //   client_id: "121471132079-8bsql8r2dc48kb0rlia0n8p893obpm92.apps.googleusercontent.com",
+  //   redirect_uri: 'http://localhost:3000/google-landing',
+  //   scope: [
+  //     'https://www.googleapis.com/auth/userinfo.email',
+  //     'https://www.googleapis.com/auth/userinfo.profile',
+  //   ].join(' '), // space seperated string
+  //   response_type: 'code',
+  //   access_type: 'offline',
+  //   prompt: 'consent',
+  // });
+
+  // const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`;
 
 
   return (
@@ -113,7 +101,7 @@ function Register({setCurrentUser}) {
                       </h6>
                     </div>
                     <div className="btn-wrapper text-center">
-        
+
                       <button
                         className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
                         type="button"
@@ -124,12 +112,12 @@ function Register({setCurrentUser}) {
                           className="w-5 mr-1"
                           src={require("../assets/img/google.svg")}
                         />
-                        
+
                         Google
-                        
+
                       </button>
-                      
- 
+
+
                       <button
                         className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
                         type="button"
@@ -178,8 +166,8 @@ function Register({setCurrentUser}) {
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                           placeholder="Password"
                           style={{ transition: "all .15s ease" }}
-                          onChange={onPasswordChange}/>
-                      
+                          onChange={onPasswordChange} />
+
                       </div>
                       <div className="relative w-full mb-3">
                         <label
@@ -203,7 +191,7 @@ function Register({setCurrentUser}) {
                             type="checkbox"
                             className="form-checkbox text-gray-800 ml-1 w-5 h-5"
                             style={{ transition: "all .15s ease" }}
-                            
+
                           />
                           <span className="ml-2 text-sm font-semibold text-gray-700">
                             Remember me
@@ -252,7 +240,10 @@ function Register({setCurrentUser}) {
     </>
   );
 }
-const mapDispatchToProps= dispatch=>({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-})
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentUser: user => dispatch(setCurrentUser(user)),
+    setUserCpm: cpm => dispatch(setUserCpm(cpm))
+  }
+}
 export default connect(null, mapDispatchToProps)(Register);

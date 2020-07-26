@@ -11,7 +11,7 @@ import './weekly.diet.css'
 
 function WeeklyDiet ({cpmUser}){
     const [meal, setMeal]=useState();
-    const [recipe, setRecipe]=useState();
+ 
     
 
     useEffect(() => {
@@ -22,16 +22,9 @@ function WeeklyDiet ({cpmUser}){
         })
         .then (response=> response.json())
         .then(response => setMeal(response.items.map(x => ({ ...x, 'value': JSON.parse(x.value)}))))}
-    }, [])
-
-    const checkMeal=()=>{
-      fetch('http://localhost:3003/meal/' + cpmUser, {
-                        method:'get',
-                        headers: {'Content-Type': 'application/json'}
-        })
-        .then (response=> response.json())
-        .then(response => setMeal(response.items.map(x => ({ ...x, 'value': JSON.parse(x.value)}))))
     }
+    , [])
+
     const checkRecipe=(x)=>{
       console.log(x);
       fetch('http://localhost:3003/recipe/' + x, {
@@ -64,14 +57,14 @@ function WeeklyDiet ({cpmUser}){
                 backgroundRepeat: "no-repeat"
               }}
             ></div>
-            
-             {meal?
-             (<div className="container mx-auto px-4 h-full">
+            {meal?
+             (<div className="container mx-auto px-4 h-full" data-aos="fade-up" data-aos-delay="500">
               <div className="flex content-center items-center justify-center h-full">
                 <div className="w-full px-4">
                   <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                     <div className="rounded-t mb-0 px-6 py-6">
-        
+                    
+             
                     <Print single name="table diet">
 
                     <Table striped bordered hover>
@@ -132,14 +125,24 @@ function WeeklyDiet ({cpmUser}){
 
 <div className="container-button-new-plan"><Button variant="primary" type="submit" className="button" className="button-weekly-diet" onClick={()=>newPlan()}>New plan
                         
-                    </Button></div>
+                    </Button></div> </div>
+                </div>
+              </div>
+            </div>
+            
+            </div>):(cpmUser == null && <div className="container mx-auto px-4 h-full">
+  <div className="flex content-center items-center justify-center h-full">
+                <div className="w-full px-4">
+                  <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
+                    <div className="rounded-t mb-0 px-6 py-6">
+                     
+            <h1>You needs first check you caloric intake on main page.<br/>After that weekly meal plan should appears here automatically.</h1>
                   </div>
                 </div>
               </div>
             </div>
             
-            </div>):(<div className="container-meal">
-            <button type="submit" className='button-meal' onClick={()=>checkMeal()}>Check your meal plan</button></div>)}
+            </div>)}
           
         </div>
          

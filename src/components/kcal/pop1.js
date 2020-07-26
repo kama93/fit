@@ -31,7 +31,8 @@ function Pop ({currentUser, setUserCpm}){
         .then(response => {
             if (response.length===0){
                 setPpm('');
-                setCpm('')
+                setCpm('');
+                setUserCpm(null)
             }
             else{
             ppm= setPpm(response[0].ppm);  

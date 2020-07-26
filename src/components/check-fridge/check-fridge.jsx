@@ -127,7 +127,7 @@ function Fridge() {
                                   </Accordion.Toggle>
                                   </Card.Header>
                                   <Accordion.Collapse eventKey="1" className="">
-                                    <p className="instruction-textarea">{recipe.length != 0 && recipe[i].instructions}</p></Accordion.Collapse>
+                                    <pre className="instruction-textarea">{recipe.length != 0 && recipe[i].instructions}</pre></Accordion.Collapse>
                                 </Card>
                               </Accordion>
                             </div>
