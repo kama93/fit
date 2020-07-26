@@ -243,7 +243,7 @@ app.get('/random/:dinner', (req,res)=>{
 app.get('/ingredients/:ingredient', (req,res)=>{
     const { ingredient }= req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=';
-    let url = ''.concat(baseURL, ingredient, '&number=4&ignorePantry&apiKey=', API_KEY);
+    let url = ''.concat(baseURL, ingredient, '&number=4&apiKey=', API_KEY);
             fetch(url)
             .then(result=>result.json())
             .then(result => res.status(200).json(result))

@@ -18,6 +18,7 @@ function Fridge() {
   const [ingredientFourth, setIngredientFourth] = useState();
   const [ingredientFifth, setIngredientFifth] = useState();
   const [recipe, setRecipe] = useState([]);
+  const [ingredient, setIngredient] = useState([]);
 
 
   const onFirstChange = (event) => {
@@ -69,7 +70,7 @@ function Fridge() {
               .then(response => Promise.all(response.map(x => x.json())))
               .then(response => {
                 setRecipe(response);
-                console.log(response[0].instructions);
+                setIngredient(response);
               })
           })
       })
@@ -113,9 +114,9 @@ function Fridge() {
                           <div>
                             <img src={x.image} />
                             <ul>
-                              {x.usedIngredients.map(ingredients =>
+                            {ingredient.length != 0 && ingredient[i].extendedIngredients.map(y=>
                                 <li className="list-ingredients">
-                                  {ingredients.originalString}
+                                  {y.original}
                                 </li>)}
                             </ul>
                             <div>
@@ -127,7 +128,7 @@ function Fridge() {
                                   </Accordion.Toggle>
                                   </Card.Header>
                                   <Accordion.Collapse eventKey="1" className="">
-                                    <pre className="instruction-textarea">{recipe.length != 0 && recipe[i].instructions}</pre></Accordion.Collapse>
+                                    <div className="instruction-textarea">{recipe.length != 0 && recipe[i].instructions}</div></Accordion.Collapse>
                                 </Card>
                               </Accordion>
                             </div>
