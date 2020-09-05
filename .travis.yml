@@ -1,0 +1,16 @@
+language: generic
+
+services:
+  - docker
+
+env:
+  global:
+    secure: z9J9XZ1q0CLvHvebvu4cs9Ft8iC6PdgU94JjQ+32k2QGfi4wYQq0TP5B8CN2hJ+plseQFjy7BE2FiJg9JDia8EL7N4qkuYO4PZvOy3dwbLS02+LCQ5HkSH8+v+AF1fEqeCwQZ3wAGYEjbMZZoIuVg24WuwgNagewokeEHjLxuIqrRVb8n5JgpFsksxolagez6QmgKqXL5aGTNFf36Lya1YHRK2A74j3mxaM5SXgQTBiU1ka1XxgvwmvykWOaj4ZaEEdzEGdrcgxBbeMCHhPS894sTm0bDhWK+AGrJ2U7aswqPmHWmcrWpSAWxgRpvb6m8LN4TqsuimOosGx70FoQzhKYZZEi9vaRpa10mo4F8GVY9YPgCtasFnW04bjbZqxjTHjI+n4FrRUURgqlw3pjgrVMVrZP66wh2b6l70dLRTEi2BC0m6U5dWOXWXUYFQg0/jTOCWfSBv8z4QwtUVT39/LGrQ35dIRc/1ZlBQ+3Kobn72E4tZFqOzevtvPiz7QiKVj4oUKhFuf4q0fgubgyRwJWpE4zE8zd87092KkbwhNH+tIKd783916HzRpGAhS/z1ra6Kl8y/bGkNl5ZTKBj9PVu9/dEK3N7QfcwCmgmZkAuDmh836eP1Z73j3+d2GTzdJ5i+WZ4DYpsRGfKe4t19JHMrwnfci+N3IimsE0n9M=
+
+script:
+- docker build -t kama93/fit:$TRAVIS_BUILD_NUMBER ./front-end
+- docker build -t kama93/fit.service:$TRAVIS_BUILD_NUMBER ./back-end
+- docker images
+- echo "$DOCKER_TOKEN" | docker login -u kama93 --password-stdin
+- docker push kama93/fit:$TRAVIS_BUILD_NUMBER
+- docker push kama93/fit.service:$TRAVIS_BUILD_NUMBER
