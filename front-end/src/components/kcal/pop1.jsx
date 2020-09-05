@@ -23,7 +23,7 @@ function Pop({ currentUser, setUserCpm }) {
     if (currentUser)
     // getting calories info value from detabase
     {
-      fetch('http://localhost:3003/calories/' + currentUser.email, {
+      fetch('/api/calories/' + currentUser.email, {
         method: 'get',
         headers: { 'Content-Type': 'application/json' }
       })
@@ -60,7 +60,7 @@ function Pop({ currentUser, setUserCpm }) {
       }
       setUserCpm(cpm)
       if (currentUser) {
-        fetch('http://localhost:3003/calories', {
+        fetch('/api/calories', {
           method: 'put',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

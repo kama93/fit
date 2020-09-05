@@ -32,7 +32,7 @@ function Register({ setCurrentUser, setUserCpm }) {
   const onSubmitSignUp = () => {
     // sending registration info to database
     if (signUpPassword === confirm) {
-      fetch('http://localhost:3003/signin', {
+      fetch('/api/signin', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

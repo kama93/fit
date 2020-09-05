@@ -18,7 +18,7 @@ function Popups({ currentUser }) {
     // looking if any past BMIs available
     useEffect(() => {
         if (currentUser) {
-            fetch('http://localhost:3003/bmi/' + currentUser.email, {
+            fetch('/api/bmi/' + currentUser.email, {
                 method: 'get',
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -66,7 +66,7 @@ function Popups({ currentUser }) {
         }
         if (currentUser) {
             // adding BMI to detabse
-            fetch('http://localhost:3003/bmi', {
+            fetch('/api/bmi', {
                 method: 'put',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -80,7 +80,7 @@ function Popups({ currentUser }) {
         }
         if (weight) {
             // adding weight to database
-            fetch('http://localhost:3003/weight', {
+            fetch('/api/weight', {
                 method: 'put',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

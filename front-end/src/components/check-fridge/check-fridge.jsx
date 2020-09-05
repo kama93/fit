@@ -45,7 +45,7 @@ function Fridge() {
   const checkMealRecipe = () => {
     const ingredients = [ingredientFirst, ingredientSecond, ingredientThird,
       ingredientFourth, ingredientFifth]
-    fetch('http://localhost:3003/ingredients/' + ingredients.filter(x => !!x).join(","), {
+    fetch('/api/ingredients/' + ingredients.filter(x => !!x).join(","), {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -54,7 +54,7 @@ function Fridge() {
         setFridge(response)
         Promise.all(response.map(x =>
           // checking recipe id
-          fetch('http://localhost:3003/recipe/' + x.id, {
+          fetch('/api/recipe/' + x.id, {
             method: 'get',
             headers: { 'Content-Type': 'application/json' },
           })))
@@ -62,7 +62,7 @@ function Fridge() {
           .then(response => {
             Promise.all(response.map(x =>
               // getting instructions and ingredients
-              fetch('http://localhost:3003/instructions/', {
+              fetch('/api/instructions/', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

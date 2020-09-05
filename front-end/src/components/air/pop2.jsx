@@ -10,7 +10,7 @@ function Pops() {
 
   // serching for geolocation (city name)
   useEffect(() => {
-    fetch('http://localhost:3003/ip/', {
+    fetch('/api/ip/', {
       method: 'get',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -20,7 +20,7 @@ function Pops() {
         setCity(response.geobytescapital);
         let city = response.geobytescapital;
         // getting info about air pollution update
-        fetch('http://localhost:3003/air/' + city, {
+        fetch('/api/air/' + city, {
           method: 'get',
           headers: { 'Content-Type': 'application/json' },
         })

@@ -22,7 +22,7 @@ const db = knex({
 });
 
 // SIGN IN
-app.put('/signin', (req, res) => {
+app.put('/api/signin', (req, res) => {
     const { email, password } = req.body;
     db.select('email', 'hash').from('login')
         .where('email', '=', email)
@@ -47,7 +47,7 @@ app.put('/signin', (req, res) => {
 })
 
 // SIGN UP
-app.post('/signin', (req, res) => {
+app.post('/api/signin', (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).json('incorrect register');
@@ -79,7 +79,7 @@ app.post('/signin', (req, res) => {
 });
 
 // put BMI in detabase
-app.put('/bmi', (req, res) => {
+app.put('/api/bmi', (req, res) => {
     const { email, bmi, info } = req.body;
     db.select('email', 'bmi', 'info').from('parameters')
         .where('email', '=', email)
@@ -106,7 +106,7 @@ app.put('/bmi', (req, res) => {
 })
 
 // get bmi from detabase
-app.get('/bmi/:email', (req, res) => {
+app.get('/api/bmi/:email', (req, res) => {
     const { email } = req.params;
     db.select('bmi', 'info')
         .from('parameters')
@@ -119,7 +119,7 @@ app.get('/bmi/:email', (req, res) => {
 )
 
 // put calories in detabase
-app.put('/calories', (req, res) => {
+app.put('/api/calories', (req, res) => {
     const { email, ppm, cpm } = req.body;
     db.select('email', 'ppm', 'cpm').from('parameters')
         .where('email', '=', email)
@@ -146,7 +146,7 @@ app.put('/calories', (req, res) => {
 })
 
 // get calories from detabase
-app.get('/calories/:email', (req, res) => {
+app.get('/api/calories/:email', (req, res) => {
     const { email } = req.params;
     db.select('cpm', 'ppm')
         .from('parameters')
@@ -161,7 +161,7 @@ app.get('/calories/:email', (req, res) => {
 )
 
 // put number of Bottles in detabase
-app.put('/bottle', (req, res) => {
+app.put('/api/bottle', (req, res) => {
     const { email, numBot } = req.body;
     db('bottle').insert({
         email: email,
@@ -173,7 +173,7 @@ app.put('/bottle', (req, res) => {
 })
 
 // get bottle number 
-app.get('/bottle/:email', (req, res) => {
+app.get('/api/bottle/:email', (req, res) => {
     const { email } = req.params;
     db('bottle').max('date')
         .where('email', '=', email)
@@ -198,10 +198,10 @@ app.get('/bottle/:email', (req, res) => {
 })
 
 // food API key
-const API_KEY = '251a3fd66f1a4c2e8154c535724af228';
+const API_KEY = process.env.API_KEY;
 
 // get meal plan from food API
-app.get('/meal/:cpm', (req, res) => {
+app.get('/api/meal/:cpm', (req, res) => {
     const { cpm } = req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/mealplans/generate?timeFrame=week&targetCalories=';
     let url = ''.concat(baseURL, cpm, '&apiKey=', API_KEY);
@@ -213,7 +213,7 @@ app.get('/meal/:cpm', (req, res) => {
 })
 
 // get recipe from food API base on id
-app.get('/recipe/:id', (req, res) => {
+app.get('/api/recipe/:id', (req, res) => {
     const { id } = req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/';
     let url = ''.concat(baseURL, id, '/information?includeNutrition=false&apiKey=', API_KEY);
@@ -225,7 +225,7 @@ app.get('/recipe/:id', (req, res) => {
 })
 
 // get random recipe from food API
-app.get('/random/:dinner', (req, res) => {
+app.get('/api/random/:dinner', (req, res) => {
     const { dinner } = req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/random?number=1&tags=';
     let url = ''.concat(baseURL, dinner, '&apiKey=', API_KEY);
@@ -237,7 +237,7 @@ app.get('/random/:dinner', (req, res) => {
 })
 
 // get recipe from food API base on ingredients
-app.get('/ingredients/:ingredient', (req, res) => {
+app.get('/api/ingredients/:ingredient', (req, res) => {
     const { ingredient } = req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=';
     let url = ''.concat(baseURL, ingredient, '&number=4&apiKey=', API_KEY);
@@ -249,7 +249,7 @@ app.get('/ingredients/:ingredient', (req, res) => {
 })
 
 // get recipe instructions base on recipe ID
-app.post('/instructions', (req, res) => {
+app.post('/api/instructions', (req, res) => {
     const { urls } = req.body;
     const baseURL = 'https://api.spoonacular.com/recipes/extract?url=';
     let url = ''.concat(baseURL, urls, '/&apiKey=', API_KEY);
@@ -261,7 +261,7 @@ app.post('/instructions', (req, res) => {
 })
 
 // put weight in database
-app.put('/weight', (req, res) => {
+app.put('/api/weight', (req, res) => {
     const { email, weight } = req.body;
     db.select('email')
         .from('weight')
@@ -284,7 +284,7 @@ app.put('/weight', (req, res) => {
 })
 
 // get weight for graph
-app.get('/weight/:email', (req, res) => {
+app.get('/api/weight/:email', (req, res) => {
     const { email } = req.params;
     db.select('weight', 'date')
         .from('weight')
@@ -298,7 +298,7 @@ app.get('/weight/:email', (req, res) => {
 )
 
 //  get geolocation adress 
-app.get('/ip', (req, res) => {
+app.get('/api/ip', (req, res) => {
     fetch('http://gd.geobytes.com/GetCityDetails')
         .then(result => result.json())
         .then(result => res.status(200).json(result))
@@ -307,7 +307,7 @@ app.get('/ip', (req, res) => {
 })
 
 // get air pollution info
-app.get('/air/:city', (req, res) => {
+app.get('/api/air/:city', (req, res) => {
     const token = 'c8650147058d3f8365e4405ae656ee7f2c91ac9f'
     const { city } = req.params;
     const baseURL = 'https://api.waqi.info/feed/';

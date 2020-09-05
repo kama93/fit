@@ -36,7 +36,7 @@ function Tracking(props) {
 
   useEffect(() => {
     // getti ng weight and dates info from database
-    fetch('http://localhost:3003/weight/' + props.currentUser.email, {
+    fetch('/api/weight/' + props.currentUser.email, {
       method: 'get',
       headers: { 'Content-Type': 'application/json' },
     })

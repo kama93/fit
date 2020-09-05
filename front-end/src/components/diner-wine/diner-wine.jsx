@@ -19,7 +19,7 @@ function DinerWine() {
   const checkDinner = () => {
     // getting random recipe
     let count = 0
-    fetch('http://localhost:3003/random/' + 'dinner', {
+    fetch('/api/random/' + 'dinner', {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })

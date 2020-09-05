@@ -14,7 +14,7 @@ const Gif = ({ currentUser }) => {
         if (currentUser)
         // getting info from database about number of added bottles (info renew every day- done in server side)
         {
-            fetch('http://localhost:3003/bottle/' + currentUser.email, {
+            fetch('/api/bottle/' + currentUser.email, {
                 method: 'get',
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -30,7 +30,7 @@ const Gif = ({ currentUser }) => {
         if (currentUser)
         // adding number of drunk water bottles
         {
-            fetch('http://localhost:3003/bottle', {
+            fetch('/api/bottle', {
                 method: 'put',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

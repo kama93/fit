@@ -20,7 +20,7 @@ function Login({ setCurrentUser }) {
 
   const onSubmitSignIn = () => {
     // log in authorisation
-    fetch('http://localhost:3003/signin', {
+    fetch('/api/signin', {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

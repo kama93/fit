@@ -16,7 +16,7 @@ function WeeklyDiet({ cpmUser }) {
     if (cpmUser)
     // getting weekly diet plan base on user caloric need(caloric state in redux)
     {
-      fetch('http://localhost:3003/meal/' + cpmUser, {
+      fetch('/api/meal/' + cpmUser, {
         method: 'get',
         headers: { 'Content-Type': 'application/json' }
       })
@@ -28,7 +28,7 @@ function WeeklyDiet({ cpmUser }) {
 
   const checkRecipe = (x) => {
     // getting URL to recipe
-    fetch('http://localhost:3003/recipe/' + x, {
+    fetch('/api/recipe/' + x, {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })

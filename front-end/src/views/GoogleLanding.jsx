@@ -11,7 +11,7 @@ export default function GoogleLanding() {
         const urlParams = new URLSearchParams(queryString);
         setCode(urlParams.get('code'))
 
-        fetch('http://localhost:3003/google/verify', {
+        fetch('/api/google/verify', {
             method:'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
