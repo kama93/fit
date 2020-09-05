@@ -12,11 +12,11 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
-RUN npm install -g http-server
+RUN npm install -g serve
 
 # Bundle app source
 COPY . .
 
 RUN npm run-script build
 
-CMD http-server /usr/src/app/build --port 5000 --proxy $API_URL
+CMD serve -s /usr/src/app/build

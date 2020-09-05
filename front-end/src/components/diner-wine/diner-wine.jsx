@@ -19,25 +19,35 @@ function DinerWine() {
   const checkDinner = () => {
     // getting random recipe
     let count = 0
-    fetch('/api/random/' + 'dinner', {
-      method: 'get',
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => response.json())
-      .then(response => {
-        if(count>3 && wine){
-          setProposal(true)
-        }
-        else{
-        if (response.recipes[0].winePairing.innerText) {
-          return setDinner(response.recipes[0]);
-        }
-        else {
-          count++
-          return checkDinner()
-        }
-      }
+
+    function checkDinnerInternal() {
+      fetch('/api/random/' + 'dinner', {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' }
       })
+        .then(response => response.json())
+        .then(response => {
+          if (wine) {
+            if (count > 3) {
+              setProposal(true)
+            }
+            else {
+              if (response.recipes[0].winePairing.innerText) {
+                return setDinner(response.recipes[0]);
+              }
+              else {
+                count++
+                return checkDinnerInternal()
+              }
+            }
+          }
+          else {
+            setDinner(response.recipes[0])
+          }
+        })
+    }
+
+    checkDinnerInternal()
   }
 
   return (
@@ -64,11 +74,10 @@ function DinerWine() {
                     <a href={dinner.spoonacularSourceUrl}>Recipe here</a>
                     <br />
                     <br />
-                    {wine ?
+                    {wine &&
                       (<div>
                         <h1 className="wine">Wine to pick up to this dish</h1>
-                        <p>{dinner.winePairing.pairingText}</p></div>) : (<div></div>
-                      )}
+                        <p>{dinner.winePairing.pairingText}</p></div>)}
                   </div>) :
                   (<div>
                     <h3 className="dinner-form">No dinner idea? <br />Click on button and check,<br /> plus you can get perfect wine parring.</h3>
@@ -83,7 +92,7 @@ function DinerWine() {
                     </Button>
                     </div>
                   </div>)}
-                  </div>)}
+                </div>)}
               </div>
             </div>
           </div>
