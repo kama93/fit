@@ -17,7 +17,7 @@ const db = knex({
         host: '127.0.0.1',
         user: '',
         password: '',
-        database: 'postgres'
+        database: 'fit'
     }
 });
 
@@ -198,7 +198,7 @@ app.get('/bottle/:email', (req, res) => {
 })
 
 // food API key
-const API_KEY = '1fa269c1643f4873b43a4d9b144b363c';
+const API_KEY = '251a3fd66f1a4c2e8154c535724af228';
 
 // get meal plan from food API
 app.get('/meal/:cpm', (req, res) => {

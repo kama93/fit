@@ -5,6 +5,7 @@ import './pop2.css'
 
 function Pops() {
   let [air, setAir] = useState('');
+  let [city, setCity] = useState('');
   let [level, setLevel] = useState('');
 
   // serching for geolocation (city name)
@@ -16,7 +17,8 @@ function Pops() {
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        let city = response.geobytescity;
+        setCity(response.geobytescapital);
+        let city = response.geobytescapital;
         // getting info about air pollution update
         fetch('http://localhost:3003/air/' + city, {
           method: 'get',
@@ -77,7 +79,7 @@ function Pops() {
       {air ?
         (<div className="container-yellow-container">
           <div className='container-air-pollution'>
-            <h3 className="air-city">{air.data.city.name}</h3>
+            <h3 className="air-city">{city}</h3>
             <h1 className="air-aqi">{air.data.aqi}</h1>
             <h2 className="air-level">{level}</h2>
           </div></div>) : (<div></div>)}

@@ -5,7 +5,7 @@ import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-import Navbar from '../nav-bar/Navbar.js';
+import Navbar from '../nav-bar/Navbar.jsx';
 import Loader from 'react-loader';
 
 import './check-fridge.css'

@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import Landing from "./views/landing-page/Lading.js";
-import Login from "./views/Login.js";
-import Register from "./views/registration.js";
+import Landing from "./views/landing-page/Lading.jsx";
+import Login from "./views/Login.jsx";
+import Register from "./views/registration.jsx";
 import GoogleLanding from "./views/GoogleLanding";
 import WeeklyDiet from "./components/weekly-diet/weekly.diet.jsx";
 import DinerWine from "./components/diner-wine/diner-wine.jsx";

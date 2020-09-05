@@ -49,7 +49,7 @@ const Gif = ({ currentUser }) => {
                 (<Popup
                     trigger={
                         <div className="gif-container" >
-                            <img data-aos="fade-left" data-aos-delay="1000" src="https://media.giphy.com/media/Wq4XUa87MWQyLT5CET/giphy.gif" width="250" height="250" frameBorder="0" className="gif" ></img>
+                            <img data-aos="fade-left" data-aos-delay="1000" src="https://media.giphy.com/media/Wq4XUa87MWQyLT5CET/giphy.gif" frameBorder="0" className="gif" ></img>
                         </div>}
                     modal
                     closeOnDocumentClick>

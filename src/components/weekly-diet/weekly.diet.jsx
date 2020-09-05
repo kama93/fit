@@ -5,7 +5,7 @@ import PrintProvider, { Print, NoPrint } from 'react-easy-print';
 import { cpmUser } from '../../redux/actions-cpm.jsx';
 import { connect } from 'react-redux';
 
-import Navbar from '../nav-bar/Navbar.js';
+import Navbar from '../nav-bar/Navbar.jsx';
 
 import './weekly.diet.css'
 
@@ -60,9 +60,9 @@ function WeeklyDiet({ cpmUser }) {
               <div className="flex content-center items-center justify-center h-full">
                 <div className="w-full px-4">
                   <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
-                    <div className="rounded-t mb-0 px-6 py-6">
+                    <div className="rounded-t mb-0 px-6 py-6 mobile-table">
                       <Print single name="table diet">
-                        <Table striped bordered hover>
+                        <Table striped bordered hover >
                           <thead>
                             <tr>
                               <th></th>

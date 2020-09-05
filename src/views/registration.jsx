@@ -138,6 +138,7 @@ function Register({ setCurrentUser, setUserCpm }) {
                           type="email"
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                           placeholder="Email"
+                          required
                           style={{ transition: "all .15s ease" }}
                           onChange={onEmailChange}
                         />
@@ -153,6 +154,9 @@ function Register({ setCurrentUser, setUserCpm }) {
                           type="password"
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                           placeholder="Password"
+                          required
+                          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" 
+                          title="Please include at least 1 uppercase character, 1 lowercase character and 1 number"
                           style={{ transition: "all .15s ease" }}
                           onChange={onPasswordChange} />
                       </div>
@@ -165,6 +169,7 @@ function Register({ setCurrentUser, setUserCpm }) {
                         </label>
                         <input
                           type="password"
+                          required
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                           placeholder="Confirm Password"
                           style={{ transition: "all .15s ease" }}
@@ -197,26 +202,7 @@ function Register({ setCurrentUser, setUserCpm }) {
                     </form>
                   </div>
                 </div>
-                <div className="flex flex-wrap mt-6">
-                  <div className="w-1/2">
-                    <a
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      className="text-gray-300"
-                    >
-                      <small>Forgot password?</small>
-                    </a>
-                  </div>
-                  <div className="w-1/2 text-right">
-                    <a
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      className="text-gray-300"
-                    >
-                      <small>Have password? Sign in</small>
-                    </a>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>

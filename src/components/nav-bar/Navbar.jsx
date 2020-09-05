@@ -74,7 +74,7 @@ function Navbar(props) {
                         " far fa-file-alt text-lg leading-lg mr-2"
                       }
                     />{" "}
-                    Weekly diet
+                    <p className="nav-titles">Weekly diet</p>
                 </Link>
                 </li>
                 <li className="flex items-center">
@@ -95,7 +95,7 @@ function Navbar(props) {
                         " far fa-file-alt text-lg leading-lg mr-2"
                       }
                     />{" "}
-                    Progress tracking
+                   <p className="nav-titles"> Progress tracking</p>
                   </Link>
                 </li>
                 <li className="flex items-center">
@@ -116,7 +116,7 @@ function Navbar(props) {
                         " far fa-file-alt text-lg leading-lg mr-2"
                       }
                     />{" "}
-                    <p>Fridge check</p>
+                    <p className="nav-titles">Fridge check</p>
                   </Link>
                 </li>
                 <li className="flex items-center">
@@ -137,7 +137,7 @@ function Navbar(props) {
                         " far fa-file-alt text-lg leading-lg mr-2"
                       }
                     />{" "}
-                    <p>Diner idea</p>
+                    <p className="nav-titles">Diner idea</p>
                   </Link>
                 </li>
                 <li className="flex items-center">
@@ -159,7 +159,7 @@ function Navbar(props) {
                         " far fa-file-alt text-lg leading-lg mr-2"
                       }
                     />{" "}
-                    <p>Sign Out</p>
+                    <p className="nav-titles">Sign Out</p>
                   </Link>
                 </li>
               </ul>) :
@@ -182,7 +182,7 @@ function Navbar(props) {
                         " far fa-file-alt text-lg leading-lg mr-2"
                       }
                     />{" "}
-                    <p>Sign In</p>
+                    <p className="nav-titles">Sign In</p>
                   </Link>
                 </li>
                 <li className="flex items-center">
@@ -203,7 +203,7 @@ function Navbar(props) {
                         " far fa-file-alt text-lg leading-lg mr-2"
                       }
                     />{" "}
-                    <p>Registration</p>
+                    <p className="nav-titles">Registration</p>
                   </Link>
                 </li>
               </ul>)}

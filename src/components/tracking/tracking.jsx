@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { connect } from 'react-redux';
 import { currentUser } from '../../redux/actions';
 
-import Navbar from '../nav-bar/Navbar.js';
+import Navbar from '../nav-bar/Navbar.jsx';
 
 import './tracking.css';
 

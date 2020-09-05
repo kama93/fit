@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Gif from '../../components/gif/gif'
-import Navbar from '../../components/nav-bar/Navbar.js';
-import Footer from '../../components/footer/Footer.js';
+import Navbar from '../../components/nav-bar/Navbar.jsx';
+import Footer from '../../components/footer/Footer.jsx';
 import Popups from '../../components/bmi/pop';
 import Pop from '../../components/kcal/pop1';
 import Pops from '../../components/air/pop2';

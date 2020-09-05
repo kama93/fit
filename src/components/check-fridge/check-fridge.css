@@ -55,3 +55,10 @@
 .fridge-cart-inside{
     margin-top: 2rem
 }
+
+@media screen and (max-width: 600px) {
+    .list-ingredients{
+        background-color: white;
+        border-color: white
+    }
+}

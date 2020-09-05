@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import Navbar from '../nav-bar/Navbar.js';
+import Navbar from '../nav-bar/Navbar.jsx';
 
 import './diner-wine.css'
 
 function DinerWine() {
   const [wine, setWine] = useState('');
   const [dinner, setDinner] = useState();
+  const [proposal, setProposal] = useState(false);
 
 
   const onWineCheck = (e) => {
@@ -17,18 +18,25 @@ function DinerWine() {
 
   const checkDinner = () => {
     // getting random recipe
+    let count = 0
     fetch('http://localhost:3003/random/' + 'dinner', {
       method: 'get',
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => response.json())
       .then(response => {
-        if (response.recipes[0].winePairing.pairingText) {
-          setDinner(response.recipes[0]);
+        if(count>3 && wine){
+          setProposal(true)
+        }
+        else{
+        if (response.recipes[0].winePairing.innerText) {
+          return setDinner(response.recipes[0]);
         }
         else {
-          checkDinner()
+          count++
+          return checkDinner()
         }
+      }
       })
   }
 
@@ -49,7 +57,7 @@ function DinerWine() {
           <div className="w-full px-4">
             <div className=" relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
               <div className="container-form-recipe rounded-t mb-0 px-6 py-6 ">
-                {dinner ?
+                {proposal ? (<div><h3 className="dinner-form"> Unfortunatelly no diner ideas for today :( <br />Maybe it's time to go to resturant,<br /> Or order some sushi.</h3></div>) : (<div> {dinner ?
                   (<div className="wine-dinner-container">
                     <img src={dinner.image} alt="recipe" />
                     <h1 className="dinner">{dinner.title}</h1>
@@ -74,6 +82,7 @@ function DinerWine() {
                         Click here for recipe
                     </Button>
                     </div>
+                  </div>)}
                   </div>)}
               </div>
             </div>
