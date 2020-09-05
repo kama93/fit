@@ -14,10 +14,10 @@ app.use(cors());
 const db = knex({
     client: 'pg',
     connection: {
-        host: '127.0.0.1',
-        user: '',
-        password: '',
-        database: 'fit'
+        host : process.env.DB_HOST || '127.0.0.1',
+        user : process.env.DB_USER || '',
+        password : process.env.DB_PASSWORD || '',
+        database : process.env.DB_NAME || 'fit'
     }
 });
 
@@ -198,7 +198,7 @@ app.get('/api/bottle/:email', (req, res) => {
 })
 
 // food API key
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.API_KEY ;
 
 // get meal plan from food API
 app.get('/api/meal/:cpm', (req, res) => {
