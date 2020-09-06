@@ -18,6 +18,12 @@ function Login({ setCurrentUser }) {
     setSignInPassword(event.target.value)
   }
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+        onSubmitSignIn()
+    }
+}
+
   const onSubmitSignIn = () => {
     // log in authorisation
     fetch('/api/signin', {
@@ -124,20 +130,8 @@ function Login({ setCurrentUser }) {
                           placeholder="Password"
                           style={{ transition: "all .15s ease" }}
                           onChange={onPasswordChange}
+                          onKeyDown={e => handleKeyDown(e)}
                         />
-                      </div>
-                      <div>
-                        <label className="inline-flex items-center cursor-pointer">
-                          <input
-                            id="customCheckLogin"
-                            type="checkbox"
-                            className="form-checkbox text-gray-800 ml-1 w-5 h-5"
-                            style={{ transition: "all .15s ease" }}
-                          />
-                          <span className="ml-2 text-sm font-semibold text-gray-700">
-                            Remember me
-                          </span>
-                        </label>
                       </div>
                       <div className="text-center mt-6">
                         <button

@@ -27,8 +27,7 @@ const gTokens = {}
 function authMiddleware (req, res, next) {
     if (req.path.startsWith('/api')) {
         const userInfo = gTokens[req['headers']['fit-token']]
-        console.log('user info: ' + userInfo)
-        req.fitUserInfo = userInfo
+        req.fitUserInfo = userInfo || {}
     }
 
     next()
@@ -349,7 +348,8 @@ app.post('/api/geo', (req, res) => {
         .catch(err => res.status(400).json('fetch IP issue'))
 })
 
-const WAQI_API_KEY = process.env.GOOGLE_API_KEY ;
+const WAQI_API_KEY = process.env.WAQI_API_KEY ;
+
 
 // get air pollution info
 app.get('/api/air/:lat/:lng', (req, res) => {
@@ -360,7 +360,7 @@ app.get('/api/air/:lat/:lng', (req, res) => {
     fetch(url)
         .then(result => result.json())
         .then(result => res.status(200).json(result))
-        .catch(err => res.status(400).json('fetch pollution issue'))
+        .catch(err => { console.log(err); res.status(400).json('fetch pollution issue') })
 })
 
 // Google Auth

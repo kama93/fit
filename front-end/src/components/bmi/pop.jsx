@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
+import { fetchWithToken } from '../../api'
 import { currentUser } from '../../redux/actions';
 
 import './pop.css'
@@ -18,7 +19,7 @@ function Popups({ currentUser }) {
     // looking if any past BMIs available
     useEffect(() => {
         if (currentUser) {
-            fetch('/api/bmi/' + currentUser.email, {
+            fetchWithToken('/api/bmi/' + currentUser.email, currentUser.fitToken, {
                 method: 'get',
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -66,7 +67,7 @@ function Popups({ currentUser }) {
         }
         if (currentUser) {
             // adding BMI to detabse
-            fetch('/api/bmi', {
+            fetchWithToken('/api/bmi', currentUser.fitToken, {
                 method: 'put',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -78,9 +79,9 @@ function Popups({ currentUser }) {
                 .then(response => response.json())
                 .then(response => console.log(response))
         }
-        if (weight) {
+        if (weight && currentUser) {
             // adding weight to database
-            fetch('/api/weight', {
+            fetchWithToken('/api/weight', currentUser.fitToken, {
                 method: 'put',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -132,7 +133,7 @@ function Popups({ currentUser }) {
         </Button>
                 </div>) :
                     (<div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <Form.Group>
                                 <Form.Row>
                                     <Col>

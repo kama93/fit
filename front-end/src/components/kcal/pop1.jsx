@@ -6,6 +6,7 @@ import Popup from "reactjs-popup";
 import { connect } from 'react-redux';
 
 import { currentUser } from '../../redux/actions';
+import { fetchWithToken } from '../../api'
 import { setUserCpm } from '../../redux/actions-cpm.jsx';
 
 import './pop1.css'
@@ -23,7 +24,7 @@ function Pop({ currentUser, setUserCpm }) {
     if (currentUser)
     // getting calories info value from detabase
     {
-      fetch('/api/calories/' + currentUser.email, {
+      fetchWithToken('/api/calories/' + currentUser.email, currentUser.fitToken, {
         method: 'get',
         headers: { 'Content-Type': 'application/json' }
       })
@@ -60,7 +61,7 @@ function Pop({ currentUser, setUserCpm }) {
       }
       setUserCpm(cpm)
       if (currentUser) {
-        fetch('/api/calories', {
+        fetchWithToken('/api/calories', currentUser.fitToken, {
           method: 'put',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

@@ -29,7 +29,9 @@ function Pops() {
             console.log(response)
             setAir(response);
             // adding comment to aqi level
-            if (response.data.aqi < 50) {
+            if (!response.data) {
+              setLevel('Unknown')
+            } else if (response.data.aqi < 50) {
               setLevel('Good')
             }
             else if (response.data.aqi < 100 && response.data.aqi > 51) {
@@ -79,8 +81,8 @@ function Pops() {
       {air ?
         (<div className="container-yellow-container">
           <div className='container-air-pollution'>
-            <h3 className="air-city">{air.data.city && air.data.city.name}</h3>
-            <h1 className="air-aqi">{air.data.aqi}</h1>
+            <h3 className="air-city">{air.data && air.data.city && air.data.city.name}</h3>
+            <h1 className="air-aqi">{air.data && air.data.aqi}</h1>
             <h2 className="air-level">{level}</h2>
           </div></div>) : (<div></div>)}
     </Popup>

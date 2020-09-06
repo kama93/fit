@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 import Button from 'react-bootstrap/Button';
 
 import { connect } from 'react-redux';
+import { fetchWithToken } from '../../api'
 import { currentUser } from '../../redux/actions';
 
 import './gif.css'
@@ -14,7 +15,7 @@ const Gif = ({ currentUser }) => {
         if (currentUser)
         // getting info from database about number of added bottles (info renew every day- done in server side)
         {
-            fetch('/api/bottle/' + currentUser.email, {
+            fetchWithToken('/api/bottle/' + currentUser.email, currentUser.fitToken, {
                 method: 'get',
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -30,7 +31,7 @@ const Gif = ({ currentUser }) => {
         if (currentUser)
         // adding number of drunk water bottles
         {
-            fetch('/api/bottle', {
+            fetchWithToken('/api/bottle', currentUser.fitToken, {
                 method: 'put',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
