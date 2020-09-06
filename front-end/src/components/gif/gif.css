@@ -30,10 +30,11 @@
     margin: 2rem
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 600px) {
     .gif-container .gif{
         width:250px;
         height:250px;
-        bottom:5rem;
+        bottom:4rem;
+        right:1rem
     }
 }

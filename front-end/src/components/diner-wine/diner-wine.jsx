@@ -7,13 +7,13 @@ import Navbar from '../nav-bar/Navbar.jsx';
 import './diner-wine.css'
 
 function DinerWine() {
-  const [wine, setWine] = useState('');
+  const [wine, setWine] = useState(false);
   const [dinner, setDinner] = useState();
   const [proposal, setProposal] = useState(false);
 
 
   const onWineCheck = (e) => {
-    setWine(e.target.value)
+    setWine(true)
   }
 
   const checkDinner = () => {
@@ -32,7 +32,7 @@ function DinerWine() {
               setProposal(true)
             }
             else {
-              if (response.recipes[0].winePairing.innerText) {
+              if (response.recipes[0].winePairing) {
                 return setDinner(response.recipes[0]);
               }
               else {

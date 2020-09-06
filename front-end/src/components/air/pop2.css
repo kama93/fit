@@ -87,3 +87,24 @@
     text-align: center;
     justify-content: center;
   }
+
+  @media only screen and (max-width: 600px) {
+    .air-city{
+        font-size: 1.5rem
+    }
+    
+    .air-aqi{
+        font-size: 3rem
+    }
+    
+    .air-level{
+        font-size: 1.5rem
+    }
+    .container-air-pollution{
+        padding:0.5rem;
+        margin: 1rem;
+        width: 15rem;
+        height: 15rem;
+        border-radius: 10px;
+    }
+  }

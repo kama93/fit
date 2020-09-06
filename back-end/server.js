@@ -198,13 +198,13 @@ app.get('/api/bottle/:email', (req, res) => {
 })
 
 // food API key
-const API_KEY = process.env.API_KEY ;
+const FOOD_API_KEY = process.env.FOOD_API_KEY ;
 
 // get meal plan from food API
 app.get('/api/meal/:cpm', (req, res) => {
     const { cpm } = req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/mealplans/generate?timeFrame=week&targetCalories=';
-    let url = ''.concat(baseURL, cpm, '&apiKey=', API_KEY);
+    let url = ''.concat(baseURL, cpm, '&apiKey=', FOOD_API_KEY);
     fetch(url)
         .then(result => result.json())
         .then(result => res.status(200).json(result))
@@ -216,7 +216,7 @@ app.get('/api/meal/:cpm', (req, res) => {
 app.get('/api/recipe/:id', (req, res) => {
     const { id } = req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/';
-    let url = ''.concat(baseURL, id, '/information?includeNutrition=false&apiKey=', API_KEY);
+    let url = ''.concat(baseURL, id, '/information?includeNutrition=false&apiKey=', FOOD_API_KEY);
     fetch(url)
         .then(result => result.json())
         .then(result => res.status(200).json(result))
@@ -228,7 +228,7 @@ app.get('/api/recipe/:id', (req, res) => {
 app.get('/api/random/:dinner', (req, res) => {
     const { dinner } = req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/random?number=1&tags=';
-    let url = ''.concat(baseURL, dinner, '&apiKey=', API_KEY);
+    let url = ''.concat(baseURL, dinner, '&apiKey=', FOOD_API_KEY);
     fetch(url)
         .then(result => result.json())
         .then(result => res.status(200).json(result))
@@ -240,7 +240,7 @@ app.get('/api/random/:dinner', (req, res) => {
 app.get('/api/ingredients/:ingredient', (req, res) => {
     const { ingredient } = req.params;
     const baseURL = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients=';
-    let url = ''.concat(baseURL, ingredient, '&number=4&apiKey=', API_KEY);
+    let url = ''.concat(baseURL, ingredient, '&number=4&apiKey=', FOOD_API_KEY);
     fetch(url)
         .then(result => result.json())
         .then(result => res.status(200).json(result))
@@ -252,7 +252,7 @@ app.get('/api/ingredients/:ingredient', (req, res) => {
 app.post('/api/instructions', (req, res) => {
     const { urls } = req.body;
     const baseURL = 'https://api.spoonacular.com/recipes/extract?url=';
-    let url = ''.concat(baseURL, urls, '/&apiKey=', API_KEY);
+    let url = ''.concat(baseURL, urls, '/&apiKey=', FOOD_API_KEY);
     fetch(url)
         .then(result => result.json())
         .then(result => res.status(200).json(result))
@@ -297,21 +297,26 @@ app.get('/api/weight/:email', (req, res) => {
 }
 )
 
-//  get geolocation adress 
-app.get('/api/ip', (req, res) => {
-    fetch('http://gd.geobytes.com/GetCityDetails')
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY ;
+
+app.post('/api/geo', (req, res) => {
+    fetch('https://www.googleapis.com/geolocation/v1/geolocate?key='+ GOOGLE_API_KEY, {
+        method: 'post',
+    })
         .then(result => result.json())
         .then(result => res.status(200).json(result))
 
         .catch(err => res.status(400).json('fetch IP issue'))
 })
 
+const WAQI_API_KEY = process.env.GOOGLE_API_KEY ;
+
 // get air pollution info
-app.get('/api/air/:city', (req, res) => {
-    const token = 'c8650147058d3f8365e4405ae656ee7f2c91ac9f'
-    const { city } = req.params;
-    const baseURL = 'https://api.waqi.info/feed/';
-    let url = ''.concat(baseURL, city, '/?token=', token);
+app.get('/api/air/:lat/:lng', (req, res) => {
+    const token = WAQI_API_KEY
+    const { lat, lng } = req.params;
+    const baseURL = 'https://api.waqi.info/feed/geo:';
+    let url = ''.concat(baseURL, lat, ';', lng, '/?token=', token);
     fetch(url)
         .then(result => result.json())
         .then(result => res.status(200).json(result))

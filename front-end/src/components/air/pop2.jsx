@@ -5,22 +5,22 @@ import './pop2.css'
 
 function Pops() {
   let [air, setAir] = useState('');
-  let [city, setCity] = useState('');
+  let [lat, setLat] = useState('');
+  let [lng, setLng] = useState('');
   let [level, setLevel] = useState('');
 
   // serching for geolocation (city name)
   useEffect(() => {
-    fetch('/api/ip/', {
-      method: 'get',
+    fetch('/api/geo', {
+      method: 'post',
       headers: { 'Content-Type': 'application/json' },
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
-        setCity(response.geobytescapital);
-        let city = response.geobytescapital;
+        setLng(lng = response.location.lng)
+        setLat(lat = response.location.lat)
         // getting info about air pollution update
-        fetch('/api/air/' + city, {
+        fetch('/api/air/' + lat + "/" + lng, {
           method: 'get',
           headers: { 'Content-Type': 'application/json' },
         })
@@ -79,7 +79,7 @@ function Pops() {
       {air ?
         (<div className="container-yellow-container">
           <div className='container-air-pollution'>
-            <h3 className="air-city">{city}</h3>
+            <h3 className="air-city">{air.data.city.name}</h3>
             <h1 className="air-aqi">{air.data.aqi}</h1>
             <h2 className="air-level">{level}</h2>
           </div></div>) : (<div></div>)}
