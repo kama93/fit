@@ -6,6 +6,7 @@ const knex = require('knex');
 const bcrypt = require('bcrypt');
 const google = require('googleapis');
 const moment = require('moment');
+const { v4: uuidv4 } = require('uuid')
 
 const app = express();
 app.use(bodyParser.json());
@@ -20,6 +21,35 @@ const db = knex({
         database : process.env.DB_NAME || 'fit'
     }
 });
+
+const gTokens = {}
+
+function authMiddleware (req, res, next) {
+    if (req.path.startsWith('/api')) {
+        const userInfo = gTokens[req['headers']['fit-token']]
+        console.log('user info: ' + userInfo)
+        req.fitUserInfo = userInfo
+    }
+
+    next()
+}
+
+function generateToken(email) {
+    const token = uuidv4()
+    gTokens[token] = { email: email }
+    return token
+}
+
+function checkTokenAccess(req, res, requestedEmail) {
+    if (req.fitUserInfo.email == requestedEmail) {
+        return
+    }
+
+    res.status(401)
+    throw Error('Insufficient permissions')
+}
+
+app.use(authMiddleware)
 
 // SIGN IN
 app.put('/api/signin', (req, res) => {
@@ -36,6 +66,7 @@ app.put('/api/signin', (req, res) => {
                     return db.select('*').from('users')
                         .where('email', '=', email)
                         .then(user => {
+                            user[0].fitToken = generateToken(email)
                             res.json(user[0])
                         })
                         .catch(err => res.status(400).json('unable to get user'))
@@ -69,6 +100,7 @@ app.post('/api/signin', (req, res) => {
                         joined: new Date()
                     })
                     .then(user => {
+                        user[0].fitToken = generateToken(email)
                         res.json(user[0])
                     })
             })
@@ -81,6 +113,7 @@ app.post('/api/signin', (req, res) => {
 // put BMI in detabase
 app.put('/api/bmi', (req, res) => {
     const { email, bmi, info } = req.body;
+    checkTokenAccess(req, res, email)
     db.select('email', 'bmi', 'info').from('parameters')
         .where('email', '=', email)
         .then(db_res => {
@@ -108,6 +141,7 @@ app.put('/api/bmi', (req, res) => {
 // get bmi from detabase
 app.get('/api/bmi/:email', (req, res) => {
     const { email } = req.params;
+    checkTokenAccess(req, res, email)
     db.select('bmi', 'info')
         .from('parameters')
         .where('email', '=', email)
@@ -121,6 +155,7 @@ app.get('/api/bmi/:email', (req, res) => {
 // put calories in detabase
 app.put('/api/calories', (req, res) => {
     const { email, ppm, cpm } = req.body;
+    checkTokenAccess(req, res, email)
     db.select('email', 'ppm', 'cpm').from('parameters')
         .where('email', '=', email)
         .then(db_res => {
@@ -148,6 +183,7 @@ app.put('/api/calories', (req, res) => {
 // get calories from detabase
 app.get('/api/calories/:email', (req, res) => {
     const { email } = req.params;
+    checkTokenAccess(req, res, email)
     db.select('cpm', 'ppm')
         .from('parameters')
         .where('email', '=', email)
@@ -163,6 +199,7 @@ app.get('/api/calories/:email', (req, res) => {
 // put number of Bottles in detabase
 app.put('/api/bottle', (req, res) => {
     const { email, numBot } = req.body;
+    checkTokenAccess(req, res, email)
     db('bottle').insert({
         email: email,
         numbot: numBot,
@@ -175,6 +212,7 @@ app.put('/api/bottle', (req, res) => {
 // get bottle number 
 app.get('/api/bottle/:email', (req, res) => {
     const { email } = req.params;
+    checkTokenAccess(req, res, email)
     db('bottle').max('date')
         .where('email', '=', email)
         .then(response => {
@@ -263,6 +301,7 @@ app.post('/api/instructions', (req, res) => {
 // put weight in database
 app.put('/api/weight', (req, res) => {
     const { email, weight } = req.body;
+    checkTokenAccess(req, res, email)
     db.select('email')
         .from('weight')
         .where('email', '=', email)
@@ -286,6 +325,7 @@ app.put('/api/weight', (req, res) => {
 // get weight for graph
 app.get('/api/weight/:email', (req, res) => {
     const { email } = req.params;
+    checkTokenAccess(req, res, email)
     db.select('weight', 'date')
         .from('weight')
         .where('email', '=', email)
@@ -396,6 +436,7 @@ app.get('/api/air/:lat/:lng', (req, res) => {
 //       tokens: tokens,
 //     };
 //   }
+
 
 const port = process.env.PORT || 3003
 app.listen(port, () => {
