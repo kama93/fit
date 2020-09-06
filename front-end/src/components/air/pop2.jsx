@@ -79,7 +79,7 @@ function Pops() {
       {air ?
         (<div className="container-yellow-container">
           <div className='container-air-pollution'>
-            <h3 className="air-city">{air.data.city.name}</h3>
+            <h3 className="air-city">{air.data.city && air.data.city.name}</h3>
             <h1 className="air-aqi">{air.data.aqi}</h1>
             <h2 className="air-level">{level}</h2>
           </div></div>) : (<div></div>)}
