@@ -8,9 +8,9 @@ env:
     secure: IaEUwUV+34wfBlxEYwT6RlCUQlDkwm0JiNfKFzg5ckASEQj7J17/0nK8lIGcNmW9S8EofnubMk6IJCZFRi/t1B1NcvPN5uZgkD1mpPHLP7p08rPwqAjkIF/PGCWgnk7BJdNrxAPfRfvJPefsgChxo9TOP8uxqtXd60K6QceL2JNrq2rqeHObGOIxBZOCks057woro4TNIHiLC7xAQ94SJhWqSz9/curallbDBwAxSLF+ouL3SSyOodfaT8E6yU7lJeMhy3+nNnlxLZiHWsLiGDiI7ORz3sv9SS/u6BEj2nvo0KedRZP/5f77X+5HEw/wCRvA142MOJsQ8mc9S4U1k9RgEnCVS1Xix+v8BgeM+QmVs3W3xsiVfr9bR+Qks9JebmP/tZ6U7hZ5hoklPY3rlskfPj0TQrD1MzIgTW+tQ4YoTl81PJ8Kap25Y3qPKP/0ZVJCAmg7uWo161wXVi/HFpXsT8HiCqgvWuZv8Os3+mBhXYpaWNVaYQbpMKDzPejIsdzhC6lphcSvfhvFqvEnthnJJW/Ptyp5o/KdgI/1hQXs4zHtqyVwUHn0LSziuJMdHd+bDGOiOT1z00aqxo3lrHAK1I3ta3RqF2fIC39QHKMlHWWqNfv+jDNzBPBH+dcInacnYcOofQdYczyWBuY6j7owI3ikIZiFtd+9GVDVu/Q=
 
 script:
-- docker build -t kama93/fit:$TRAVIS_BUILD_NUMBER ./front-end
-- docker build -t kama93/fit.service:$TRAVIS_BUILD_NUMBER ./back-end
+- docker build -t kama93/fit:latest ./front-end
+- docker build -t kama93/fit.service:latest ./back-end
 - docker images
 - echo "$DOCKER_TOKEN" | docker login -u kama93 --password-stdin
-- docker push kama93/fit:$TRAVIS_BUILD_NUMBER
-- docker push kama93/fit.service:$TRAVIS_BUILD_NUMBER
+- docker push kama93/fit:latest
+- docker push kama93/fit.service:latest
