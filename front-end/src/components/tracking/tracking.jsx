@@ -10,30 +10,24 @@ import Navbar from '../nav-bar/Navbar.jsx';
 import './tracking.css';
 
 function Tracking(props) {
-  const [graph, setGrapgh] = useState([]);
   let [weight, setWeight] = useState();
-  let [data, setData] = useState();
-  const [hoverData, setHoverData] = useState(null);
-  const [chartOptions, setChartOptions] = useState({
-    xAxis: {
-      categories: data,
-    },
-    series: [
-      { data: weight }
-    ],
-    title: { text: "Bmi Tracking Check" },
-    plotOptions: {
-      series: {
-        point: {
-          events: {
-            mouseOver(e) {
-              setHoverData(e.target.category)
-            }
-          }
-        }
-      }
+
+  function createChartOptions() {
+    return  {
+      xAxis: {
+        type: 'datetime',
+      },
+      yAxis: {
+        title: { text: 'Weight [kg]' }
+      },
+      series: [
+        { data: weight, name: 'weight' }
+      ],
+      title: { text: "Weight Tracking" },
     }
-  });
+  }
+
+  const [chartOptions, setChartOptions] = useState(createChartOptions());
 
   useEffect(() => {
     // getti ng weight and dates info from database
@@ -43,8 +37,8 @@ function Tracking(props) {
     })
       .then(response => response.json())
       .then(response => {
-        setWeight(weight = response.map(x => x.weight));
-        setData(data = response.map(x => x.date))
+        setWeight(weight = response.map(x => [Date.parse(x.date), x.weight]));
+        setChartOptions(createChartOptions())
       })
   }, []);
 
@@ -60,7 +54,7 @@ function Tracking(props) {
           backgroundRepeat: "no-repeat"
         }}
       ></div>
-      {weight ? (
+      {weight && (
      <div className=" container mx-auto px-4 h-full container-recipe" >
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full px-4">
@@ -76,7 +70,7 @@ function Tracking(props) {
             </div>
           </div>
         </div>
-      </div>) : (<div></div>)}
+      </div>)}
     </div>
   )
 }
