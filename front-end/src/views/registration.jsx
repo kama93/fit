@@ -111,8 +111,8 @@ function Register({ setCurrentUser, setUserCpm }) {
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                           placeholder="Password"
                           required
-                          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" 
-                          title="Please include at least 1 uppercase character, 1 lowercase character and 1 number"
+                          minLength='8'
+                          title="Password has to have at least 8 characters"
                           style={{ transition: "all .15s ease" }}
                           onChange={onPasswordChange} />
                       </div>

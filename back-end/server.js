@@ -22,6 +22,7 @@ const db = knex({
     }
 });
 
+// generate email token for storage
 const gTokens = {}
 
 function authMiddleware (req, res, next) {
@@ -109,7 +110,7 @@ app.post('/api/signin', (req, res) => {
         .catch(err => res.status(400).json('fetch issue with registration'))
 });
 
-// put BMI in detabase
+// put BMI in database
 app.put('/api/bmi', (req, res) => {
     const { email, bmi, info } = req.body;
     checkTokenAccess(req, res, email)
@@ -137,7 +138,7 @@ app.put('/api/bmi', (req, res) => {
         })
 })
 
-// get bmi from detabase
+// get bmi from database
 app.get('/api/bmi/:email', (req, res) => {
     const { email } = req.params;
     checkTokenAccess(req, res, email)
@@ -151,7 +152,7 @@ app.get('/api/bmi/:email', (req, res) => {
 }
 )
 
-// put calories in detabase
+// put calories in database
 app.put('/api/calories', (req, res) => {
     const { email, ppm, cpm } = req.body;
     checkTokenAccess(req, res, email)
@@ -179,7 +180,7 @@ app.put('/api/calories', (req, res) => {
         })
 })
 
-// get calories from detabase
+// get calories from database
 app.get('/api/calories/:email', (req, res) => {
     const { email } = req.params;
     checkTokenAccess(req, res, email)
@@ -195,7 +196,7 @@ app.get('/api/calories/:email', (req, res) => {
 }
 )
 
-// put number of Bottles in detabase
+// put number of Bottles in database
 app.put('/api/bottle', (req, res) => {
     const { email, numBot } = req.body;
     checkTokenAccess(req, res, email)
@@ -336,22 +337,10 @@ app.get('/api/weight/:email', (req, res) => {
 }
 )
 
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY ;
-
-app.post('/api/geo', (req, res) => {
-    fetch('https://www.googleapis.com/geolocation/v1/geolocate?key='+ GOOGLE_API_KEY, {
-        method: 'post',
-    })
-        .then(result => result.json())
-        .then(result => res.status(200).json(result))
-
-        .catch(err => res.status(400).json('fetch IP issue'))
-})
-
-const WAQI_API_KEY = process.env.WAQI_API_KEY ;
-
 
 // get air pollution info
+const WAQI_API_KEY = process.env.WAQI_API_KEY ;
+
 app.get('/api/air/:lat/:lng', (req, res) => {
     const token = WAQI_API_KEY
     const { lat, lng } = req.params;
@@ -362,81 +351,6 @@ app.get('/api/air/:lat/:lng', (req, res) => {
         .then(result => res.status(200).json(result))
         .catch(err => { console.log(err); res.status(400).json('fetch pollution issue') })
 })
-
-// Google Auth
-
-// app.get('/google-landing', (req, res) => {
-//     const { code } = req.body
-
-//     const auth = new google.auth.OAuth2(
-//         '121471132079-kjqicpum3hvaere938v1uersfeeak2ck.apps.googleusercontent.com',
-//         'K5c1RxFXTipQ6QPAU05MoTUy',
-//         'http://localhost:3000/google-landing'
-//     )
-
-//     const auth = createConnection();
-//     const data = await auth.getToken(code);
-//     const tokens = data.tokens;
-//     const auth = createConnection();
-//     auth.setCredentials(tokens);
-//     const plus = getGooglePlusApi(auth);
-//     const me = await plus.people.get({ userId: 'me' });
-//     const userGoogleId = me.data.id;
-//     const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
-
-//     console.log(userGoogleEmail)
-
-//     return {
-//         id: userGoogleId,
-//         email: userGoogleEmail,
-//         tokens: tokens,
-//     };
-// })
-
-
-
-
-//   const defaultScope = [
-//     'https://www.googleapis.com/auth/plus.me',
-//     'https://www.googleapis.com/auth/userinfo.email',
-//   ];
-
-//   function getConnectionUrl(auth) {
-//     return auth.generateAuthUrl({
-//       access_type: 'offline',
-//       prompt: 'consent',
-//       scope: defaultScope
-//     });
-//   }
-
-//   function getGooglePlusApi(auth) {
-//     return google.plus({ version: 'v1', auth });
-//   }
-//   /** MAIN **/
-//   function urlGoogle() {
-//     const auth = createConnection();
-//     const url = getConnectionUrl(auth);
-//     return url;
-//   }
-
-// Part 2: Take the "code" parameter which Google gives us once when the user logs in, then get the user's email and id.
-
-//   function getGoogleAccountFromCode(code) {
-//     const data = await auth.getToken(code);
-//     const tokens = data.tokens;
-//     const auth = createConnection();
-//     auth.setCredentials(tokens);
-//     const plus = getGooglePlusApi(auth);
-//     const me = await plus.people.get({ userId: 'me' });
-//     const userGoogleId = me.data.id;
-//     const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
-//     return {
-//       id: userGoogleId,
-//       email: userGoogleEmail,
-//       tokens: tokens,
-//     };
-//   }
-
 
 const port = process.env.PORT || 3003
 app.listen(port, () => {
