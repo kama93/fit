@@ -12,18 +12,21 @@ function WeeklyDiet({ cpmUser }) {
   const [meal, setMeal] = useState();
 
   useEffect(() => {
-    if (cpmUser)
+    if (cpmUser){
     // getting weekly diet plan base on user caloric need(caloric state in redux)
-    {
-      fetch('/api/meal/' + cpmUser, {
-        method: 'get',
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(response => response.json())
-      .then(response => setMeal(response.items.map(x => ({ ...x, 'value': JSON.parse(x.value) }))))
+    weeklyPlan();
     }
   }
     , [cpmUser])
+
+  const weeklyPlan = () =>{
+    fetch('/api/meal/' + cpmUser, {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(response => setMeal(response.items.map(x => ({ ...x, 'value': JSON.parse(x.value) }))))
+  }
 
   const checkRecipe = (x) => {
     // getting URL to recipe
@@ -37,7 +40,7 @@ function WeeklyDiet({ cpmUser }) {
 
   // allows to get new plan
   const newPlan = () => {
-    setMeal('')
+    weeklyPlan()
   }
 
   return (

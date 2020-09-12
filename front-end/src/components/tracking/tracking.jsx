@@ -9,7 +9,7 @@ import Navbar from '../nav-bar/Navbar.jsx';
 import './tracking.css';
 
 function Tracking(props) {
-  let [weight, setWeight] = useState();
+  let [weight, setWeight] = useState('');
 
   function createChartOptions() {
     return  {
@@ -59,6 +59,9 @@ function Tracking(props) {
           <div className="w-full px-4">
             <div className=" relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
               <div className="container-highcharts container-form-recipe  rounded-t mb-0 px-6 py-6 ">
+              {weight.length < 1 &&
+              (<div className="tracking-description">
+      <p>You need to fill BMI information on main page to start checking you progress.</p></div>)}
                   <div>
                     <HighchartsReact
                       highcharts={Highcharts}
