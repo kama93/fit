@@ -5,7 +5,6 @@ import Col from 'react-bootstrap/Col';
 import Popup from "reactjs-popup";
 import { connect } from 'react-redux';
 
-import { currentUser } from '../../redux/actions';
 import { fetchWithToken } from '../../api'
 import { setUserCpm } from '../../redux/actions-cpm.jsx';
 

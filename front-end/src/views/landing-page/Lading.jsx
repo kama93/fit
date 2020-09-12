@@ -163,7 +163,7 @@ function Landing() {
                     up to a 35% lower risk of coronary heart disease and stroke,
                     up to a 50% lower risk of type 2 diabetes. <br />(From NHS page)
                   </p>
-                  <ul className="list-none mt-6">
+                  <ul className="list-none mt-6 list-active">
                     <li className="py-2">
                       <div className="flex items-center">
                         <div>

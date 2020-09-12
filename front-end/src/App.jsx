@@ -5,7 +5,6 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import Landing from "./views/landing-page/Lading.jsx";
 import Login from "./views/Login.jsx";
 import Register from "./views/registration.jsx";
-import GoogleLanding from "./views/GoogleLanding";
 import WeeklyDiet from "./components/weekly-diet/weekly.diet.jsx";
 import DinerWine from "./components/diner-wine/diner-wine.jsx";
 import Tracking from "./components/tracking/tracking.jsx";
@@ -23,7 +22,6 @@ function App() {
       <Route path="/diner" component={DinerWine} />
       <Route path="/tracking" component={Tracking} />
       <Route path="/landing" component={Landing} />
-      <Route path="/google-landing" component={GoogleLanding} />
       <Redirect from="/" to="/landing" />
     </Switch>
   );

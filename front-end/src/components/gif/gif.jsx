@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 
 import { connect } from 'react-redux';
 import { fetchWithToken } from '../../api'
-import { currentUser } from '../../redux/actions';
 
 import './gif.css'
 
@@ -50,7 +49,7 @@ const Gif = ({ currentUser }) => {
                 (<Popup
                     trigger={
                         <div className="gif-container" >
-                            <img data-aos="fade-left" data-aos-delay="1000" src="https://media.giphy.com/media/Wq4XUa87MWQyLT5CET/giphy.gif" frameBorder="0" className="gif" ></img>
+                            <img data-aos="fade-left" alt="bottle" data-aos-delay="1000" src="https://media.giphy.com/media/Wq4XUa87MWQyLT5CET/giphy.gif" frameBorder="0" className="gif" ></img>
                         </div>}
                     modal
                     closeOnDocumentClick>
@@ -58,11 +57,11 @@ const Gif = ({ currentUser }) => {
                         <div>Remember, you should drink at least 2L of water a day.</div>
                         <div className="bottle-container">
 
-                            {Array(number).fill().map(x => (<img className="bottle" src="bottle.png" />))}
+                            {Array(number).fill().map(x => (<img className="bottle" alt="bottle" src="bottle.png" />))}
                         </div><br />
-                        {number == 4 && (<div>Congrats! You have reached your goal.</div>)}
-                        {number != 4 && <div className="container-button-new-plan">
-                            <Button variant="primary" type="submit" className="button" className="button-weekly-diet" onClick={() => addWater()}>Add 250 mls
+                        {number === 4 && (<div>Congrats! You have reached your goal.</div>)}
+                        {number !== 4 && <div className="container-button-new-plan">
+                            <Button variant="primary" type="submit" className="button button-weekly-diet" onClick={() => addWater()}>Add 250 mls
                         </Button></div>
                         }
                     </div>

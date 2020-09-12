@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from '../redux/actions';
 
 function Login({ setCurrentUser }) {
-  const [signInEmail, setSignInEmail] = useState('');
-  const [signInPassword, setSignInPassword] = useState('');
+  let [signInEmail, setSignInEmail] = useState('');
+  let [signInPassword, setSignInPassword] = useState('');
 
   const history = useHistory();
 
@@ -20,9 +20,16 @@ function Login({ setCurrentUser }) {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-        onSubmitSignIn()
+      onSubmitSignIn()
     }
-}
+  }
+
+  // Log in to demo user
+  const demoLogIn = () => {
+    setSignInEmail(signInEmail='k@gmail.com');
+    setSignInPassword(signInPassword='k');
+    onSubmitSignIn();
+  }
 
   const onSubmitSignIn = () => {
     // log in authorisation
@@ -66,33 +73,17 @@ function Login({ setCurrentUser }) {
                   <div className="rounded-t mb-0 px-6 py-6">
                     <div className="text-center mb-3">
                       <h6 className="text-gray-600 text-sm font-bold">
-                        Sign in with
+                        Try my app with prepare user.
                       </h6>
                     </div>
                     <div className="btn-wrapper text-center">
                       <button
-                        className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                        className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-l"
                         type="button"
                         style={{ transition: "all .15s ease" }}
+                        onClick={demoLogIn}
                       >
-                        <img
-                          alt="..."
-                          className="w-5 mr-1"
-                          src={require("../assets/img/google.svg")}
-                        />
-                        Google
-                      </button>
-                      <button
-                        className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                        type="button"
-                        style={{ transition: "all .15s ease" }}
-                      >
-                        <img
-                          alt="..."
-                          className="w-5 mr-1"
-                          src={require("../assets/img/facebook.svg")}
-                        />
-                        Facebook
+                        Demo Log In
                       </button>
                     </div>
                     <hr className="mt-6 border-b-1 border-gray-400" />

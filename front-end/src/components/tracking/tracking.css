@@ -1,0 +1,19 @@
+
+@media only screen and (max-width: 600px) {
+    .highcharts-container{
+        width:350px !important;
+        height: 300px !important;
+    }
+     .highcharts-root{
+        width:350px !important;
+        height: 300px !important;
+    }
+    .container-highcharts{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    }
+  }
+
+  /* , .highcharts-plot-border  .highcharts-plot-background,*/

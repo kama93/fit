@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import PrintProvider, { Print, NoPrint } from 'react-easy-print';
-import { cpmUser } from '../../redux/actions-cpm.jsx';
 import { connect } from 'react-redux';
 
 import Navbar from '../nav-bar/Navbar.jsx';
@@ -24,7 +23,7 @@ function WeeklyDiet({ cpmUser }) {
       .then(response => setMeal(response.items.map(x => ({ ...x, 'value': JSON.parse(x.value) }))))
     }
   }
-    , [])
+    , [cpmUser])
 
   const checkRecipe = (x) => {
     // getting URL to recipe
@@ -117,7 +116,7 @@ function WeeklyDiet({ cpmUser }) {
                           </tbody>
                         </Table>
                       </Print>
-                      <div className="container-button-new-plan"><Button variant="primary" type="submit" className="button" className="button-weekly-diet" onClick={() => newPlan()}>New plan
+                      <div className="container-button-new-plan"><Button variant="primary" type="submit" className="button button-weekly-diet" onClick={() => newPlan()}>New plan
                     </Button></div> </div>
                   </div>
                 </div>

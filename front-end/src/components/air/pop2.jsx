@@ -9,49 +9,47 @@ function Pops() {
   let [lng, setLng] = useState('');
   let [level, setLevel] = useState('');
 
-  // serching for geolocation (city name)
   useEffect(() => {
-    fetch('/api/geo', {
-      method: 'post',
+    navigator.geolocation.getCurrentPosition(function (position) {
+      console.log('bla')
+      setLat(position.coords.latitude);
+      setLng(position.coords.longitude);
+    });
+  }, [])
+  
+  useEffect(() => {
+      console.log(lat, lng)
+    // getting info about air pollution update
+    fetch('/api/air/' + lat + "/" + lng, {
+      method: 'get',
       headers: { 'Content-Type': 'application/json' },
     })
       .then(response => response.json())
       .then(response => {
-        setLng(lng = response.location.lng)
-        setLat(lat = response.location.lat)
-        // getting info about air pollution update
-        fetch('/api/air/' + lat + "/" + lng, {
-          method: 'get',
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then(response => response.json())
-          .then(response => {
-            console.log(response)
-            setAir(response);
-            // adding comment to aqi level
-            if (!response.data) {
-              setLevel('Unknown')
-            } else if (response.data.aqi < 50) {
-              setLevel('Good')
-            }
-            else if (response.data.aqi < 100 && response.data.aqi > 51) {
-              setLevel('Moderate')
-            }
-            else if (response.data.aqi < 150 && response.data.aqi > 101) {
-              setLevel('Unhealthy for Sensitive Groups')
-            }
-            else if (response.data.aqi < 200 && response.data.aqi > 151) {
-              setLevel('Unhealthy')
-            }
-            else if (response.data.aqi < 300 && response.data.aqi > 201) {
-              setLevel('Very Unhealthy')
-            }
-            else {
-              setLevel('Hazardous')
-            }
-          })
+        setAir(response);
+        // adding comment to aqi level
+        if (!response.data) {
+          setLevel('Unknown')
+        } else if (response.data.aqi < 50) {
+          setLevel('Good')
+        }
+        else if (response.data.aqi < 100 && response.data.aqi > 51) {
+          setLevel('Moderate')
+        }
+        else if (response.data.aqi < 150 && response.data.aqi > 101) {
+          setLevel('Unhealthy for Sensitive Groups')
+        }
+        else if (response.data.aqi < 200 && response.data.aqi > 151) {
+          setLevel('Unhealthy')
+        }
+        else if (response.data.aqi < 300 && response.data.aqi > 201) {
+          setLevel('Very Unhealthy')
+        }
+        else {
+          setLevel('Hazardous')
+        }
       })
-  }, []);
+  }, [lat, lng]);
 
   return (
     <Popup
@@ -84,7 +82,11 @@ function Pops() {
             <h3 className="air-city">{air.data && air.data.city && air.data.city.name}</h3>
             <h1 className="air-aqi">{air.data && air.data.aqi}</h1>
             <h2 className="air-level">{level}</h2>
-          </div></div>) : (<div></div>)}
+          </div></div>) : (
+            <div className="container-yellow-container">
+            <div className='container-air-pollution'>
+            <h3 className="air-city">No data available, check leater.</h3>
+          </div></div>)}
     </Popup>
   )
 }

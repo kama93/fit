@@ -7,7 +7,6 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 import { fetchWithToken } from '../../api'
-import { currentUser } from '../../redux/actions';
 
 import './pop.css'
 
