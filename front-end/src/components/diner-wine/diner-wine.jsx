@@ -57,7 +57,7 @@ function DinerWine() {
         className="absolute top-0 w-full h-full bg-gray-900 "
         style={{
           backgroundImage:
-            "url(diner.jpg)",
+            "url(diner.png)",
           backgroundSize: "100%",
           backgroundRepeat: "no-repeat"
         }}

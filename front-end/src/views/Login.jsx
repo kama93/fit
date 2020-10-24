@@ -61,7 +61,7 @@ function Login({ setCurrentUser }) {
             className="absolute w-full h-full bg-gray-900"
             style={{
               backgroundImage:
-                "url(orange.jpg)",
+                "url(orange.png)",
               backgroundSize: "100%",
               backgroundRepeat: "no-repeat"
             }}

@@ -48,7 +48,7 @@ function Tracking(props) {
         className="absolute top-0 w-full h-full bg-gray-900 "
         style={{
           backgroundImage:
-            "url(graph.jpg)",
+            "url(graph.png)",
           backgroundSize: "100%",
           backgroundRepeat: "no-repeat"
         }}

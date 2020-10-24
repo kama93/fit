@@ -86,7 +86,7 @@ function Fridge() {
         className="absolute top-0 w-full h-full bg-grey "
         style={{
           backgroundImage:
-            "url(fridge.jpg)",
+            "url(fridge.png)",
           backgroundSize: 'cover',
           backgroundRepeat: "no-repeat",
         }}

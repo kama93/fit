@@ -52,7 +52,7 @@ function WeeklyDiet({ cpmUser }) {
             className="absolute top-0 w-full h-full bg-gray-900 "
             style={{
               backgroundImage:
-                "url(blue.jpg)",
+                "url(blue.png)",
               backgroundSize: "100%",
               backgroundRepeat: "no-repeat"
             }}
