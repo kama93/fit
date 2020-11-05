@@ -7,11 +7,6 @@ Fit app was build mainly with SpoonacularAPI, front-end was done using React lib
 ![picture](img/main-page.png)
 
 Landing page (when user is sign in) client can find:
-* after clicking on bottle - on pop up there is a button to add ”250 mls” after clicking there would be bottle appear on the screen (max 4 bottles) to achieved 2l water a day, number of bottles are also remembered and they are reset every day
-
-![picture](img/bottle-click.png)
-![picture](img/bottle-top.png)
-
 in the Navbar
 
 ![picture](img/navbar.png)
@@ -36,6 +31,11 @@ Instructions will be shown after clicking on the accordion
 It contains a daily chart of the weight.
 
 ![picture](img/track.png)
+
+* after clicking on bottle - on pop up there is a button to add ”250 mls” after clicking there would be bottle appear on the screen (max 4 bottles) to achieved 2l water a day, number of bottles are also remembered and they are reset every day
+
+![picture](img/bottle-click.png)
+![picture](img/bottle-top.png)
 
 Landing page (when user is not sign in) client can find:
 * BMI (body mass calculator) after clicking on component there is pop up where user can do calculation after filling form
