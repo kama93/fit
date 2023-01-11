@@ -15,7 +15,7 @@
     "express": "^4.17.1",
     "fetch": "^1.1.0",
     "googleapis": "^54.0.0",
-    "knex": "^0.21.2",
+    "knex": "^2.4.0",
     "moment": "^2.27.0",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
